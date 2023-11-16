@@ -1,13 +1,13 @@
 package zorm
 
 type SchemaConfig struct {
-	Host         string `json:",env=DATABASE_HOST"`
-	Port         int    `json:",env=DATABASE_PORT"`
-	Username     string `json:",default=root,env=DATABASE_USERNAME"`
+	Host         string `json:",optional,env=DATABASE_HOST"`
+	Port         int    `json:",optional,env=DATABASE_PORT"`
+	Username     string `json:",optional,default=root,env=DATABASE_USERNAME"`
 	Password     string `json:",optional,env=DATABASE_PASSWORD"`
-	DBName       string `json:",default=simple_admin,env=DATABASE_DBNAME"`
+	DBName       string `json:",optional,default=simple_admin,env=DATABASE_DBNAME"`
 	SSLMode      string `json:",optional,env=DATABASE_SSL_MODE"`
-	Type         string `json:",default=mysql,options=[mysql,postgres,sqlite3],env=DATABASE_TYPE"`
+	Type         string `json:",optional,default=mysql,options=[mysql,postgres,sqlite3],env=DATABASE_TYPE"`
 	MaxOpenConn  int    `json:",optional,default=500,env=DATABASE_MAX_OPEN_CONN"`
 	MaxIdelConn  int    `json:",optional,default=200,env=DATABASE_MAX_IDEL_CONN"`
 	CacheTime    int    `json:",optional,default=10,env=DATABASE_CACHE_TIME"`
@@ -18,8 +18,8 @@ type SchemaConfig struct {
 }
 
 type DBConfig struct {
-	MainSource  Source
-	OtherSource []Source
+	MainSource  Source   `json:",optional"`
+	OtherSource []Source `json:",optional"`
 	Prometheus  DBPrometheus
 	Sharding    []DBSharding
 	Mode        string
@@ -27,8 +27,8 @@ type DBConfig struct {
 
 type Source struct {
 	SchemaConfig
-	Replicas []SchemaConfig
-	Tables   []string `json:",optional"`
+	Replicas []SchemaConfig `json:",optional"`
+	Tables   []string       `json:",optional"`
 }
 
 type DBPrometheus struct {
