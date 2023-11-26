@@ -185,7 +185,7 @@ func NewValidator() *Validator {
 	v.Validator = validator.New()
 	enTrans, _ := v.Uni.GetTranslator("en")
 	zhTrans, _ := v.Uni.GetTranslator("zh")
-	brTrans, _ := v.Uni.GetTranslator("pt")
+	brTrans, _ := v.Uni.GetTranslator("pt_BR")
 
 	v.Trans = make(map[string]ut.Translator)
 	v.Trans["en"] = enTrans
