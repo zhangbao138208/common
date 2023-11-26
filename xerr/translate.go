@@ -10,7 +10,7 @@ import (
 func TransError(ctx context.Context, err error) error {
 	if isGrpcError(err) {
 		if status.Code(err) >= codes.Canceled && status.Code(err) <= codes.Unauthenticated {
-			return status.Error(status.Code(err), "common.grpc_err_"+fmt.Sprint(status.Code(err)))
+			return status.Error(status.Code(err), "common.grpc_err_"+fmt.Sprint(uint32(status.Code(err))))
 		}
 	}
 	return err
