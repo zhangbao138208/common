@@ -6,9 +6,13 @@ require (
 	entgo.io/ent v0.12.3
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/alicebob/miniredis/v2 v2.30.4
+	github.com/go-playground/locales v0.14.1
+	github.com/go-playground/universal-translator v0.18.1
+	github.com/go-playground/validator/v10 v10.16.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/zeromicro/go-zero v1.5.4
 	gitlab.skig.tech/zero-core/sharding v0.0.11
+	golang.org/x/text v0.11.0
 	google.golang.org/grpc v1.56.2
 	google.golang.org/protobuf v1.31.0
 	gorm.io/driver/mysql v1.5.1-0.20230509030346-3715c134c25b
@@ -29,6 +33,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.15.0 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
@@ -41,6 +46,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.13.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/longbridgeapp/sqlparser v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
@@ -68,11 +74,11 @@ require (
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
 	go.uber.org/automaxprocs v1.5.2 // indirect
+	golang.org/x/crypto v0.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230510235704-dd950f8aeaea // indirect
 	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/tools v0.8.1-0.20230428195545-5283a0178901 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -80,3 +86,9 @@ require (
 	gorm.io/driver/postgres v1.5.2 // indirect
 	gorm.io/hints v1.1.2 // indirect
 )
+
+replace (
+	github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.16
+
+)
+
