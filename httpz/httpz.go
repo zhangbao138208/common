@@ -190,7 +190,7 @@ func NewValidator() *Validator {
 	v.Trans = make(map[string]ut.Translator)
 	v.Trans["en"] = enTrans
 	v.Trans["zh"] = zhTrans
-	v.Trans["pt-Br"] = brTrans
+	v.Trans["pt-BR"] = brTrans
 	// add support languages
 	initSupportLanguages()
 
@@ -202,14 +202,11 @@ func NewValidator() *Validator {
 	err = zhTranslations.RegisterDefaultTranslations(v.Validator, zhTrans)
 	if err != nil {
 		logx.Errorw("register Chinese translation failed", logx.Field("detail", err.Error()))
-
 		return nil
 	}
-
 	err = brTranslations.RegisterDefaultTranslations(v.Validator, brTrans)
 	if err != nil {
-		logx.Errorw("register Chinese translation failed", logx.Field("detail", err.Error()))
-
+		logx.Errorw("register pt-BR translation failed", logx.Field("detail", err.Error()))
 		return nil
 	}
 
