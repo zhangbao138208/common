@@ -18,6 +18,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 
 	enLang "github.com/go-playground/locales/en"
+	brLang "github.com/go-playground/locales/pt_BR"
 	zhLang "github.com/go-playground/locales/zh_Hans"
 	ut "github.com/go-playground/universal-translator"
 	enTranslations "github.com/go-playground/validator/v10/translations/en"
@@ -179,7 +180,8 @@ func NewValidator() *Validator {
 
 	en := enLang.New()
 	zh := zhLang.New()
-	v.Uni = ut.New(zh, en, zh)
+	br := brLang.New()
+	v.Uni = ut.New(zh, en, br)
 	v.Validator = validator.New()
 	enTrans, _ := v.Uni.GetTranslator("en")
 	zhTrans, _ := v.Uni.GetTranslator("zh")
