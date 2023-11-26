@@ -185,12 +185,12 @@ func NewValidator() *Validator {
 	v.Validator = validator.New()
 	enTrans, _ := v.Uni.GetTranslator("en")
 	zhTrans, _ := v.Uni.GetTranslator("zh")
-	brTrans, _ := v.Uni.GetTranslator("pt-BR")
+	brTrans, _ := v.Uni.GetTranslator("pt")
 
 	v.Trans = make(map[string]ut.Translator)
 	v.Trans["en"] = enTrans
 	v.Trans["zh"] = zhTrans
-	v.Trans["pt-BR"] = brTrans
+	v.Trans["pt"] = brTrans
 	// add support languages
 	initSupportLanguages()
 
@@ -265,7 +265,9 @@ func initSupportLanguages() {
 	supportLang["zh-CN"] = "zh"
 	supportLang["en"] = "en"
 	supportLang["en-US"] = "en"
-	supportLang["pt-BR"] = "pt-BR"
+	supportLang["pt-BR"] = "pt"
+	supportLang["pt"] = "pt"
+
 }
 
 // RegisterValidation registers the validation function to validator
