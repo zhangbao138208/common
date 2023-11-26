@@ -21,7 +21,7 @@ import (
 	zhLang "github.com/go-playground/locales/zh_Hans"
 	ut "github.com/go-playground/universal-translator"
 	enTranslations "github.com/go-playground/validator/v10/translations/en"
-	brTranslations "github.com/go-playground/validator/v10/translations/zh"
+	brTranslations "github.com/go-playground/validator/v10/translations/pt_BR"
 	zhTranslations "github.com/go-playground/validator/v10/translations/zh"
 )
 
