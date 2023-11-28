@@ -1,6 +1,7 @@
 package httpz
 
 import (
+	"encoding/xml"
 	"errors"
 	"github.com/go-playground/validator/v10"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -46,6 +47,15 @@ var (
 
 // Parse parses the request.
 func Parse(r *http.Request, v any, isValidate bool) error {
+	var buf strings.Builder
+	reader := io.LimitReader(r.Body, 8<<20)
+	teeReader := io.TeeReader(reader, &buf)
+	decoder := xml.NewDecoder(teeReader)
+	// 解析 XML 数据到 Person 结构体
+	err := decoder.Decode(v)
+	if err != nil {
+		return errorx.NewCodeInvalidArgumentError(err.Error())
+	}
 	if err := ParseJsonBody(r, v); err != nil {
 		return errorx.NewCodeInvalidArgumentError(err.Error())
 	}
