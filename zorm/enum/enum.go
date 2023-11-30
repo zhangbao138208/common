@@ -92,6 +92,9 @@ const (
 	PB
 	RTG
 	FUNKY
+	AG
+	PP
+
 	//HABANERO
 )
 
@@ -153,6 +156,10 @@ func (p PLAT) String() string {
 	//	return "HABANERO"
 	case FUNKY:
 		return "FUNKY"
+	case AG:
+		return "AG"
+	case PP:
+		return "PP"
 	}
 	return ""
 }
