@@ -11,6 +11,7 @@ require (
 	github.com/go-playground/validator/v10 v10.16.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/zeromicro/go-zero v1.5.4
+	github.com/zeromicro/x v0.0.0-20230424055333-01c7fb9548d4
 	gitlab.skig.tech/zero-core/sharding v0.0.11
 	golang.org/x/text v0.12.0
 	google.golang.org/grpc v1.57.0
