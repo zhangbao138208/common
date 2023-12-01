@@ -29,3 +29,8 @@ func OkJsonCtx(ctx context.Context, r *http.Request, w http.ResponseWriter, v an
 	}
 	httpx.OkJsonCtx(ctx, w, v)
 }
+
+// Ok writes HTTP 200 OK into w.
+func Ok(w http.ResponseWriter) {
+	w.WriteHeader(http.StatusOK)
+}
