@@ -47,8 +47,7 @@ var (
 
 // Parse parses the request.
 func Parse(r *http.Request, v any, isValidate bool) error {
-	if r.Header.Get(header.ContentType) != header.ApplicationJson &&
-		r.Header.Get(header.ContentType) != header.JsonContentType {
+	if r.Header.Get(header.ContentType) == "application/xml" || r.Header.Get(header.ContentType) == "text/xml" {
 		var buf strings.Builder
 		reader := io.LimitReader(r.Body, 8<<20)
 		teeReader := io.TeeReader(reader, &buf)
