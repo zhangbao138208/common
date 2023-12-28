@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"gitlab.skig.tech/zero-core/common/zorm/gen/model"
+	"gitlab.skig.tech/zero-core/common/zorm/model"
 )
 
 func newWinFrontGameClassifyCms(db *gorm.DB, opts ...gen.DOOption) winFrontGameClassifyCms {
