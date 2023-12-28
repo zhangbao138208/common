@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"gitlab.skig.tech/zero-core/common/zorm/model"
+	"gitlab.skig.tech/zero-core/common/zorm/gen/model"
 )
 
 func newWinNotice(db *gorm.DB, opts ...gen.DOOption) winNotice {
@@ -29,14 +29,15 @@ func newWinNotice(db *gorm.DB, opts ...gen.DOOption) winNotice {
 	_winNotice.ALL = field.NewAsterisk(tableName)
 	_winNotice.ID = field.NewInt64(tableName, "id")
 	_winNotice.Title = field.NewString(tableName, "title")
+	_winNotice.Lang = field.NewString(tableName, "lang")
 	_winNotice.Content = field.NewString(tableName, "content")
-	_winNotice.Uids = field.NewString(tableName, "uids")
 	_winNotice.Category = field.NewInt64(tableName, "category")
 	_winNotice.Status = field.NewInt64(tableName, "status")
 	_winNotice.Sort = field.NewInt64(tableName, "sort")
 	_winNotice.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winNotice.UpdatedAt = field.NewInt64(tableName, "updated_at")
 	_winNotice.OperatorName = field.NewString(tableName, "operator_name")
+	_winNotice.UID = field.NewInt64(tableName, "uid")
 
 	_winNotice.fillFieldMap()
 
@@ -47,16 +48,17 @@ type winNotice struct {
 	winNoticeDo
 
 	ALL          field.Asterisk
-	ID           field.Int64
+	ID           field.Int64  // 自增ID
 	Title        field.String // 标题
+	Lang         field.String // 语言
 	Content      field.String // 内容
-	Uids         field.String // 系统公告制定用户
 	Category     field.Int64  // 类型:1-系统公告2-站内信 3-系统消息
 	Status       field.Int64  // 状态:1-启用 0-停用
 	Sort         field.Int64  // 排序:从大到小
 	CreatedAt    field.Int64
 	UpdatedAt    field.Int64
 	OperatorName field.String // 操作人姓名
+	UID          field.Int64  // 用户ID
 
 	fieldMap map[string]field.Expr
 }
@@ -75,14 +77,15 @@ func (w *winNotice) updateTableName(table string) *winNotice {
 	w.ALL = field.NewAsterisk(table)
 	w.ID = field.NewInt64(table, "id")
 	w.Title = field.NewString(table, "title")
+	w.Lang = field.NewString(table, "lang")
 	w.Content = field.NewString(table, "content")
-	w.Uids = field.NewString(table, "uids")
 	w.Category = field.NewInt64(table, "category")
 	w.Status = field.NewInt64(table, "status")
 	w.Sort = field.NewInt64(table, "sort")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
 	w.OperatorName = field.NewString(table, "operator_name")
+	w.UID = field.NewInt64(table, "uid")
 
 	w.fillFieldMap()
 
@@ -99,17 +102,18 @@ func (w *winNotice) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (w *winNotice) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 10)
+	w.fieldMap = make(map[string]field.Expr, 11)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["title"] = w.Title
+	w.fieldMap["lang"] = w.Lang
 	w.fieldMap["content"] = w.Content
-	w.fieldMap["uids"] = w.Uids
 	w.fieldMap["category"] = w.Category
 	w.fieldMap["status"] = w.Status
 	w.fieldMap["sort"] = w.Sort
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
 	w.fieldMap["operator_name"] = w.OperatorName
+	w.fieldMap["uid"] = w.UID
 }
 
 func (w winNotice) clone(db *gorm.DB) winNotice {

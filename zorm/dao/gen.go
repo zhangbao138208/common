@@ -71,7 +71,7 @@ var (
 	WinDictItem                       *winDictItem
 	WinFbOrderLog                     *winFbOrderLog
 	WinFrontGameBigCategoryBanner     *winFrontGameBigCategoryBanner
-	WinFrontGameClassifyCm            *winFrontGameClassifyCm
+	WinFrontGameClassifyCm            *winFrontGameClassifyCms
 	WinFrontGameClassifyInfoCm        *winFrontGameClassifyInfoCm
 	WinFrontGameClassifyInfoCms230629 *winFrontGameClassifyInfoCms230629
 	WinGameList                       *winGameList
@@ -306,7 +306,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinDictItem:                       newWinDictItem(db, opts...),
 		WinFbOrderLog:                     newWinFbOrderLog(db, opts...),
 		WinFrontGameBigCategoryBanner:     newWinFrontGameBigCategoryBanner(db, opts...),
-		WinFrontGameClassifyCm:            newWinFrontGameClassifyCm(db, opts...),
+		WinFrontGameClassifyCm:            newWinFrontGameClassifyCms(db, opts...),
 		WinFrontGameClassifyInfoCm:        newWinFrontGameClassifyInfoCm(db, opts...),
 		WinFrontGameClassifyInfoCms230629: newWinFrontGameClassifyInfoCms230629(db, opts...),
 		WinGameList:                       newWinGameList(db, opts...),
@@ -425,7 +425,7 @@ type Query struct {
 	WinDictItem                       winDictItem
 	WinFbOrderLog                     winFbOrderLog
 	WinFrontGameBigCategoryBanner     winFrontGameBigCategoryBanner
-	WinFrontGameClassifyCm            winFrontGameClassifyCm
+	WinFrontGameClassifyCm            winFrontGameClassifyCms
 	WinFrontGameClassifyInfoCm        winFrontGameClassifyInfoCm
 	WinFrontGameClassifyInfoCms230629 winFrontGameClassifyInfoCms230629
 	WinGameList                       winGameList
@@ -789,7 +789,7 @@ type queryCtx struct {
 	WinDictItem                       IWinDictItemDo
 	WinFbOrderLog                     IWinFbOrderLogDo
 	WinFrontGameBigCategoryBanner     IWinFrontGameBigCategoryBannerDo
-	WinFrontGameClassifyCm            IWinFrontGameClassifyCmDo
+	WinFrontGameClassifyCm            IWinFrontGameClassifyCmsDo
 	WinFrontGameClassifyInfoCm        IWinFrontGameClassifyInfoCmDo
 	WinFrontGameClassifyInfoCms230629 IWinFrontGameClassifyInfoCms230629Do
 	WinGameList                       IWinGameListDo

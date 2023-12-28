@@ -4,12 +4,13 @@
 
 package model
 
-const TableNameWinFrontGameClassifyCm = "win_front_game_classify_cms"
+const TableNameWinFrontGameClassifyCms = "win_front_game_classify_cms"
 
-// WinFrontGameClassifyCm mapped from table <win_front_game_classify_cms>
-type WinFrontGameClassifyCm struct {
+// WinFrontGameClassifyCms mapped from table <win_front_game_classify_cms>
+type WinFrontGameClassifyCms struct {
 	ID           int64  `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id,string"`
 	Sort         int64  `gorm:"column:sort;type:int;not null;comment:排序" json:"sort"`                        // 排序
+	Lang         string `gorm:"column:lang;type:varchar(32);not null;default:en;comment:语言" json:"lang"`     // 语言
 	CName        string `gorm:"column:c_name;type:varchar(255);not null;comment:分类名称" json:"cName"`          // 分类名称
 	LogoURL      string `gorm:"column:logo_url;type:varchar(1000);not null;comment:图片地址" json:"logoUrl"`     // 图片地址
 	Enable       int64  `gorm:"column:enable;type:tinyint;not null;comment:状态:0关闭,1启用" json:"enable"`        // 状态:0关闭,1启用
@@ -20,7 +21,7 @@ type WinFrontGameClassifyCm struct {
 	OperatorName string `gorm:"column:operator_name;type:varchar(32);comment:操作人姓名" json:"operatorName"`     // 操作人姓名
 }
 
-// TableName WinFrontGameClassifyCm's table name
-func (*WinFrontGameClassifyCm) TableName() string {
-	return TableNameWinFrontGameClassifyCm
+// TableName WinFrontGameClassifyCms's table name
+func (*WinFrontGameClassifyCms) TableName() string {
+	return TableNameWinFrontGameClassifyCms
 }

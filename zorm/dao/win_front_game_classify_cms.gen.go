@@ -16,39 +16,41 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"gitlab.skig.tech/zero-core/common/zorm/model"
+	"gitlab.skig.tech/zero-core/common/zorm/gen/model"
 )
 
-func newWinFrontGameClassifyCm(db *gorm.DB, opts ...gen.DOOption) winFrontGameClassifyCm {
-	_winFrontGameClassifyCm := winFrontGameClassifyCm{}
+func newWinFrontGameClassifyCms(db *gorm.DB, opts ...gen.DOOption) winFrontGameClassifyCms {
+	_winFrontGameClassifyCms := winFrontGameClassifyCms{}
 
-	_winFrontGameClassifyCm.winFrontGameClassifyCmDo.UseDB(db, opts...)
-	_winFrontGameClassifyCm.winFrontGameClassifyCmDo.UseModel(&model.WinFrontGameClassifyCm{})
+	_winFrontGameClassifyCms.winFrontGameClassifyCmsDo.UseDB(db, opts...)
+	_winFrontGameClassifyCms.winFrontGameClassifyCmsDo.UseModel(&model.WinFrontGameClassifyCms{})
 
-	tableName := _winFrontGameClassifyCm.winFrontGameClassifyCmDo.TableName()
-	_winFrontGameClassifyCm.ALL = field.NewAsterisk(tableName)
-	_winFrontGameClassifyCm.ID = field.NewInt64(tableName, "id")
-	_winFrontGameClassifyCm.Sort = field.NewInt64(tableName, "sort")
-	_winFrontGameClassifyCm.CName = field.NewString(tableName, "c_name")
-	_winFrontGameClassifyCm.LogoURL = field.NewString(tableName, "logo_url")
-	_winFrontGameClassifyCm.Enable = field.NewInt64(tableName, "enable")
-	_winFrontGameClassifyCm.CreatedAt = field.NewInt64(tableName, "created_at")
-	_winFrontGameClassifyCm.CreateUser = field.NewString(tableName, "create_user")
-	_winFrontGameClassifyCm.UpdatedAt = field.NewInt64(tableName, "updated_at")
-	_winFrontGameClassifyCm.UpdateUser = field.NewString(tableName, "update_user")
-	_winFrontGameClassifyCm.OperatorName = field.NewString(tableName, "operator_name")
+	tableName := _winFrontGameClassifyCms.winFrontGameClassifyCmsDo.TableName()
+	_winFrontGameClassifyCms.ALL = field.NewAsterisk(tableName)
+	_winFrontGameClassifyCms.ID = field.NewInt64(tableName, "id")
+	_winFrontGameClassifyCms.Sort = field.NewInt64(tableName, "sort")
+	_winFrontGameClassifyCms.Lang = field.NewString(tableName, "lang")
+	_winFrontGameClassifyCms.CName = field.NewString(tableName, "c_name")
+	_winFrontGameClassifyCms.LogoURL = field.NewString(tableName, "logo_url")
+	_winFrontGameClassifyCms.Enable = field.NewInt64(tableName, "enable")
+	_winFrontGameClassifyCms.CreatedAt = field.NewInt64(tableName, "created_at")
+	_winFrontGameClassifyCms.CreateUser = field.NewString(tableName, "create_user")
+	_winFrontGameClassifyCms.UpdatedAt = field.NewInt64(tableName, "updated_at")
+	_winFrontGameClassifyCms.UpdateUser = field.NewString(tableName, "update_user")
+	_winFrontGameClassifyCms.OperatorName = field.NewString(tableName, "operator_name")
 
-	_winFrontGameClassifyCm.fillFieldMap()
+	_winFrontGameClassifyCms.fillFieldMap()
 
-	return _winFrontGameClassifyCm
+	return _winFrontGameClassifyCms
 }
 
-type winFrontGameClassifyCm struct {
-	winFrontGameClassifyCmDo
+type winFrontGameClassifyCms struct {
+	winFrontGameClassifyCmsDo
 
 	ALL          field.Asterisk
 	ID           field.Int64
 	Sort         field.Int64  // 排序
+	Lang         field.String // 语言
 	CName        field.String // 分类名称
 	LogoURL      field.String // 图片地址
 	Enable       field.Int64  // 状态:0关闭,1启用
@@ -61,20 +63,21 @@ type winFrontGameClassifyCm struct {
 	fieldMap map[string]field.Expr
 }
 
-func (w winFrontGameClassifyCm) Table(newTableName string) *winFrontGameClassifyCm {
-	w.winFrontGameClassifyCmDo.UseTable(newTableName)
+func (w winFrontGameClassifyCms) Table(newTableName string) *winFrontGameClassifyCms {
+	w.winFrontGameClassifyCmsDo.UseTable(newTableName)
 	return w.updateTableName(newTableName)
 }
 
-func (w winFrontGameClassifyCm) As(alias string) *winFrontGameClassifyCm {
-	w.winFrontGameClassifyCmDo.DO = *(w.winFrontGameClassifyCmDo.As(alias).(*gen.DO))
+func (w winFrontGameClassifyCms) As(alias string) *winFrontGameClassifyCms {
+	w.winFrontGameClassifyCmsDo.DO = *(w.winFrontGameClassifyCmsDo.As(alias).(*gen.DO))
 	return w.updateTableName(alias)
 }
 
-func (w *winFrontGameClassifyCm) updateTableName(table string) *winFrontGameClassifyCm {
+func (w *winFrontGameClassifyCms) updateTableName(table string) *winFrontGameClassifyCms {
 	w.ALL = field.NewAsterisk(table)
 	w.ID = field.NewInt64(table, "id")
 	w.Sort = field.NewInt64(table, "sort")
+	w.Lang = field.NewString(table, "lang")
 	w.CName = field.NewString(table, "c_name")
 	w.LogoURL = field.NewString(table, "logo_url")
 	w.Enable = field.NewInt64(table, "enable")
@@ -89,7 +92,7 @@ func (w *winFrontGameClassifyCm) updateTableName(table string) *winFrontGameClas
 	return w
 }
 
-func (w *winFrontGameClassifyCm) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
+func (w *winFrontGameClassifyCms) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 	_f, ok := w.fieldMap[fieldName]
 	if !ok || _f == nil {
 		return nil, false
@@ -98,10 +101,11 @@ func (w *winFrontGameClassifyCm) GetFieldByName(fieldName string) (field.OrderEx
 	return _oe, ok
 }
 
-func (w *winFrontGameClassifyCm) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 10)
+func (w *winFrontGameClassifyCms) fillFieldMap() {
+	w.fieldMap = make(map[string]field.Expr, 11)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["sort"] = w.Sort
+	w.fieldMap["lang"] = w.Lang
 	w.fieldMap["c_name"] = w.CName
 	w.fieldMap["logo_url"] = w.LogoURL
 	w.fieldMap["enable"] = w.Enable
@@ -112,58 +116,58 @@ func (w *winFrontGameClassifyCm) fillFieldMap() {
 	w.fieldMap["operator_name"] = w.OperatorName
 }
 
-func (w winFrontGameClassifyCm) clone(db *gorm.DB) winFrontGameClassifyCm {
-	w.winFrontGameClassifyCmDo.ReplaceConnPool(db.Statement.ConnPool)
+func (w winFrontGameClassifyCms) clone(db *gorm.DB) winFrontGameClassifyCms {
+	w.winFrontGameClassifyCmsDo.ReplaceConnPool(db.Statement.ConnPool)
 	return w
 }
 
-func (w winFrontGameClassifyCm) replaceDB(db *gorm.DB) winFrontGameClassifyCm {
-	w.winFrontGameClassifyCmDo.ReplaceDB(db)
+func (w winFrontGameClassifyCms) replaceDB(db *gorm.DB) winFrontGameClassifyCms {
+	w.winFrontGameClassifyCmsDo.ReplaceDB(db)
 	return w
 }
 
-type winFrontGameClassifyCmDo struct{ gen.DO }
+type winFrontGameClassifyCmsDo struct{ gen.DO }
 
-type IWinFrontGameClassifyCmDo interface {
+type IWinFrontGameClassifyCmsDo interface {
 	gen.SubQuery
-	Debug() IWinFrontGameClassifyCmDo
-	WithContext(ctx context.Context) IWinFrontGameClassifyCmDo
+	Debug() IWinFrontGameClassifyCmsDo
+	WithContext(ctx context.Context) IWinFrontGameClassifyCmsDo
 	WithResult(fc func(tx gen.Dao)) gen.ResultInfo
 	ReplaceDB(db *gorm.DB)
-	ReadDB() IWinFrontGameClassifyCmDo
-	WriteDB() IWinFrontGameClassifyCmDo
+	ReadDB() IWinFrontGameClassifyCmsDo
+	WriteDB() IWinFrontGameClassifyCmsDo
 	As(alias string) gen.Dao
-	Session(config *gorm.Session) IWinFrontGameClassifyCmDo
+	Session(config *gorm.Session) IWinFrontGameClassifyCmsDo
 	Columns(cols ...field.Expr) gen.Columns
-	Clauses(conds ...clause.Expression) IWinFrontGameClassifyCmDo
-	Not(conds ...gen.Condition) IWinFrontGameClassifyCmDo
-	Or(conds ...gen.Condition) IWinFrontGameClassifyCmDo
-	Select(conds ...field.Expr) IWinFrontGameClassifyCmDo
-	Where(conds ...gen.Condition) IWinFrontGameClassifyCmDo
-	Order(conds ...field.Expr) IWinFrontGameClassifyCmDo
-	Distinct(cols ...field.Expr) IWinFrontGameClassifyCmDo
-	Omit(cols ...field.Expr) IWinFrontGameClassifyCmDo
-	Join(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo
-	LeftJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo
-	RightJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo
-	Group(cols ...field.Expr) IWinFrontGameClassifyCmDo
-	Having(conds ...gen.Condition) IWinFrontGameClassifyCmDo
-	Limit(limit int) IWinFrontGameClassifyCmDo
-	Offset(offset int) IWinFrontGameClassifyCmDo
+	Clauses(conds ...clause.Expression) IWinFrontGameClassifyCmsDo
+	Not(conds ...gen.Condition) IWinFrontGameClassifyCmsDo
+	Or(conds ...gen.Condition) IWinFrontGameClassifyCmsDo
+	Select(conds ...field.Expr) IWinFrontGameClassifyCmsDo
+	Where(conds ...gen.Condition) IWinFrontGameClassifyCmsDo
+	Order(conds ...field.Expr) IWinFrontGameClassifyCmsDo
+	Distinct(cols ...field.Expr) IWinFrontGameClassifyCmsDo
+	Omit(cols ...field.Expr) IWinFrontGameClassifyCmsDo
+	Join(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo
+	LeftJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo
+	RightJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo
+	Group(cols ...field.Expr) IWinFrontGameClassifyCmsDo
+	Having(conds ...gen.Condition) IWinFrontGameClassifyCmsDo
+	Limit(limit int) IWinFrontGameClassifyCmsDo
+	Offset(offset int) IWinFrontGameClassifyCmsDo
 	Count() (count int64, err error)
-	Scopes(funcs ...func(gen.Dao) gen.Dao) IWinFrontGameClassifyCmDo
-	Unscoped() IWinFrontGameClassifyCmDo
-	Create(values ...*model.WinFrontGameClassifyCm) error
-	CreateInBatches(values []*model.WinFrontGameClassifyCm, batchSize int) error
-	Save(values ...*model.WinFrontGameClassifyCm) error
-	First() (*model.WinFrontGameClassifyCm, error)
-	Take() (*model.WinFrontGameClassifyCm, error)
-	Last() (*model.WinFrontGameClassifyCm, error)
-	Find() ([]*model.WinFrontGameClassifyCm, error)
-	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinFrontGameClassifyCm, err error)
-	FindInBatches(result *[]*model.WinFrontGameClassifyCm, batchSize int, fc func(tx gen.Dao, batch int) error) error
+	Scopes(funcs ...func(gen.Dao) gen.Dao) IWinFrontGameClassifyCmsDo
+	Unscoped() IWinFrontGameClassifyCmsDo
+	Create(values ...*model.WinFrontGameClassifyCms) error
+	CreateInBatches(values []*model.WinFrontGameClassifyCms, batchSize int) error
+	Save(values ...*model.WinFrontGameClassifyCms) error
+	First() (*model.WinFrontGameClassifyCms, error)
+	Take() (*model.WinFrontGameClassifyCms, error)
+	Last() (*model.WinFrontGameClassifyCms, error)
+	Find() ([]*model.WinFrontGameClassifyCms, error)
+	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinFrontGameClassifyCms, err error)
+	FindInBatches(result *[]*model.WinFrontGameClassifyCms, batchSize int, fc func(tx gen.Dao, batch int) error) error
 	Pluck(column field.Expr, dest interface{}) error
-	Delete(...*model.WinFrontGameClassifyCm) (info gen.ResultInfo, err error)
+	Delete(...*model.WinFrontGameClassifyCms) (info gen.ResultInfo, err error)
 	Update(column field.Expr, value interface{}) (info gen.ResultInfo, err error)
 	UpdateSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	Updates(value interface{}) (info gen.ResultInfo, err error)
@@ -171,163 +175,163 @@ type IWinFrontGameClassifyCmDo interface {
 	UpdateColumnSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	UpdateColumns(value interface{}) (info gen.ResultInfo, err error)
 	UpdateFrom(q gen.SubQuery) gen.Dao
-	Attrs(attrs ...field.AssignExpr) IWinFrontGameClassifyCmDo
-	Assign(attrs ...field.AssignExpr) IWinFrontGameClassifyCmDo
-	Joins(fields ...field.RelationField) IWinFrontGameClassifyCmDo
-	Preload(fields ...field.RelationField) IWinFrontGameClassifyCmDo
-	FirstOrInit() (*model.WinFrontGameClassifyCm, error)
-	FirstOrCreate() (*model.WinFrontGameClassifyCm, error)
-	FindByPage(offset int, limit int) (result []*model.WinFrontGameClassifyCm, count int64, err error)
+	Attrs(attrs ...field.AssignExpr) IWinFrontGameClassifyCmsDo
+	Assign(attrs ...field.AssignExpr) IWinFrontGameClassifyCmsDo
+	Joins(fields ...field.RelationField) IWinFrontGameClassifyCmsDo
+	Preload(fields ...field.RelationField) IWinFrontGameClassifyCmsDo
+	FirstOrInit() (*model.WinFrontGameClassifyCms, error)
+	FirstOrCreate() (*model.WinFrontGameClassifyCms, error)
+	FindByPage(offset int, limit int) (result []*model.WinFrontGameClassifyCms, count int64, err error)
 	ScanByPage(result interface{}, offset int, limit int) (count int64, err error)
 	Scan(result interface{}) (err error)
-	Returning(value interface{}, columns ...string) IWinFrontGameClassifyCmDo
+	Returning(value interface{}, columns ...string) IWinFrontGameClassifyCmsDo
 	UnderlyingDB() *gorm.DB
 	schema.Tabler
 }
 
-func (w winFrontGameClassifyCmDo) Debug() IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Debug() IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Debug())
 }
 
-func (w winFrontGameClassifyCmDo) WithContext(ctx context.Context) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) WithContext(ctx context.Context) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.WithContext(ctx))
 }
 
-func (w winFrontGameClassifyCmDo) ReadDB() IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) ReadDB() IWinFrontGameClassifyCmsDo {
 	return w.Clauses(dbresolver.Read)
 }
 
-func (w winFrontGameClassifyCmDo) WriteDB() IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) WriteDB() IWinFrontGameClassifyCmsDo {
 	return w.Clauses(dbresolver.Write)
 }
 
-func (w winFrontGameClassifyCmDo) Session(config *gorm.Session) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Session(config *gorm.Session) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Session(config))
 }
 
-func (w winFrontGameClassifyCmDo) Clauses(conds ...clause.Expression) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Clauses(conds ...clause.Expression) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Clauses(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Returning(value interface{}, columns ...string) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Returning(value interface{}, columns ...string) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Returning(value, columns...))
 }
 
-func (w winFrontGameClassifyCmDo) Not(conds ...gen.Condition) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Not(conds ...gen.Condition) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Not(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Or(conds ...gen.Condition) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Or(conds ...gen.Condition) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Or(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Select(conds ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Select(conds ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Select(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Where(conds ...gen.Condition) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Where(conds ...gen.Condition) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Where(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Order(conds ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Order(conds ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Order(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Distinct(cols ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Distinct(cols ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Distinct(cols...))
 }
 
-func (w winFrontGameClassifyCmDo) Omit(cols ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Omit(cols ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Omit(cols...))
 }
 
-func (w winFrontGameClassifyCmDo) Join(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Join(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Join(table, on...))
 }
 
-func (w winFrontGameClassifyCmDo) LeftJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) LeftJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.LeftJoin(table, on...))
 }
 
-func (w winFrontGameClassifyCmDo) RightJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) RightJoin(table schema.Tabler, on ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.RightJoin(table, on...))
 }
 
-func (w winFrontGameClassifyCmDo) Group(cols ...field.Expr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Group(cols ...field.Expr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Group(cols...))
 }
 
-func (w winFrontGameClassifyCmDo) Having(conds ...gen.Condition) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Having(conds ...gen.Condition) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Having(conds...))
 }
 
-func (w winFrontGameClassifyCmDo) Limit(limit int) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Limit(limit int) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Limit(limit))
 }
 
-func (w winFrontGameClassifyCmDo) Offset(offset int) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Offset(offset int) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Offset(offset))
 }
 
-func (w winFrontGameClassifyCmDo) Scopes(funcs ...func(gen.Dao) gen.Dao) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Scopes(funcs ...func(gen.Dao) gen.Dao) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Scopes(funcs...))
 }
 
-func (w winFrontGameClassifyCmDo) Unscoped() IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Unscoped() IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Unscoped())
 }
 
-func (w winFrontGameClassifyCmDo) Create(values ...*model.WinFrontGameClassifyCm) error {
+func (w winFrontGameClassifyCmsDo) Create(values ...*model.WinFrontGameClassifyCms) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return w.DO.Create(values)
 }
 
-func (w winFrontGameClassifyCmDo) CreateInBatches(values []*model.WinFrontGameClassifyCm, batchSize int) error {
+func (w winFrontGameClassifyCmsDo) CreateInBatches(values []*model.WinFrontGameClassifyCms, batchSize int) error {
 	return w.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (w winFrontGameClassifyCmDo) Save(values ...*model.WinFrontGameClassifyCm) error {
+func (w winFrontGameClassifyCmsDo) Save(values ...*model.WinFrontGameClassifyCms) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return w.DO.Save(values)
 }
 
-func (w winFrontGameClassifyCmDo) First() (*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) First() (*model.WinFrontGameClassifyCms, error) {
 	if result, err := w.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinFrontGameClassifyCm), nil
+		return result.(*model.WinFrontGameClassifyCms), nil
 	}
 }
 
-func (w winFrontGameClassifyCmDo) Take() (*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) Take() (*model.WinFrontGameClassifyCms, error) {
 	if result, err := w.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinFrontGameClassifyCm), nil
+		return result.(*model.WinFrontGameClassifyCms), nil
 	}
 }
 
-func (w winFrontGameClassifyCmDo) Last() (*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) Last() (*model.WinFrontGameClassifyCms, error) {
 	if result, err := w.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinFrontGameClassifyCm), nil
+		return result.(*model.WinFrontGameClassifyCms), nil
 	}
 }
 
-func (w winFrontGameClassifyCmDo) Find() ([]*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) Find() ([]*model.WinFrontGameClassifyCms, error) {
 	result, err := w.DO.Find()
-	return result.([]*model.WinFrontGameClassifyCm), err
+	return result.([]*model.WinFrontGameClassifyCms), err
 }
 
-func (w winFrontGameClassifyCmDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinFrontGameClassifyCm, err error) {
-	buf := make([]*model.WinFrontGameClassifyCm, 0, batchSize)
+func (w winFrontGameClassifyCmsDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinFrontGameClassifyCms, err error) {
+	buf := make([]*model.WinFrontGameClassifyCms, 0, batchSize)
 	err = w.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -335,49 +339,49 @@ func (w winFrontGameClassifyCmDo) FindInBatch(batchSize int, fc func(tx gen.Dao,
 	return results, err
 }
 
-func (w winFrontGameClassifyCmDo) FindInBatches(result *[]*model.WinFrontGameClassifyCm, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (w winFrontGameClassifyCmsDo) FindInBatches(result *[]*model.WinFrontGameClassifyCms, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return w.DO.FindInBatches(result, batchSize, fc)
 }
 
-func (w winFrontGameClassifyCmDo) Attrs(attrs ...field.AssignExpr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Attrs(attrs ...field.AssignExpr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Attrs(attrs...))
 }
 
-func (w winFrontGameClassifyCmDo) Assign(attrs ...field.AssignExpr) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Assign(attrs ...field.AssignExpr) IWinFrontGameClassifyCmsDo {
 	return w.withDO(w.DO.Assign(attrs...))
 }
 
-func (w winFrontGameClassifyCmDo) Joins(fields ...field.RelationField) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Joins(fields ...field.RelationField) IWinFrontGameClassifyCmsDo {
 	for _, _f := range fields {
 		w = *w.withDO(w.DO.Joins(_f))
 	}
 	return &w
 }
 
-func (w winFrontGameClassifyCmDo) Preload(fields ...field.RelationField) IWinFrontGameClassifyCmDo {
+func (w winFrontGameClassifyCmsDo) Preload(fields ...field.RelationField) IWinFrontGameClassifyCmsDo {
 	for _, _f := range fields {
 		w = *w.withDO(w.DO.Preload(_f))
 	}
 	return &w
 }
 
-func (w winFrontGameClassifyCmDo) FirstOrInit() (*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) FirstOrInit() (*model.WinFrontGameClassifyCms, error) {
 	if result, err := w.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinFrontGameClassifyCm), nil
+		return result.(*model.WinFrontGameClassifyCms), nil
 	}
 }
 
-func (w winFrontGameClassifyCmDo) FirstOrCreate() (*model.WinFrontGameClassifyCm, error) {
+func (w winFrontGameClassifyCmsDo) FirstOrCreate() (*model.WinFrontGameClassifyCms, error) {
 	if result, err := w.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinFrontGameClassifyCm), nil
+		return result.(*model.WinFrontGameClassifyCms), nil
 	}
 }
 
-func (w winFrontGameClassifyCmDo) FindByPage(offset int, limit int) (result []*model.WinFrontGameClassifyCm, count int64, err error) {
+func (w winFrontGameClassifyCmsDo) FindByPage(offset int, limit int) (result []*model.WinFrontGameClassifyCms, count int64, err error) {
 	result, err = w.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -392,7 +396,7 @@ func (w winFrontGameClassifyCmDo) FindByPage(offset int, limit int) (result []*m
 	return
 }
 
-func (w winFrontGameClassifyCmDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
+func (w winFrontGameClassifyCmsDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
 	count, err = w.Count()
 	if err != nil {
 		return
@@ -402,15 +406,15 @@ func (w winFrontGameClassifyCmDo) ScanByPage(result interface{}, offset int, lim
 	return
 }
 
-func (w winFrontGameClassifyCmDo) Scan(result interface{}) (err error) {
+func (w winFrontGameClassifyCmsDo) Scan(result interface{}) (err error) {
 	return w.DO.Scan(result)
 }
 
-func (w winFrontGameClassifyCmDo) Delete(models ...*model.WinFrontGameClassifyCm) (result gen.ResultInfo, err error) {
+func (w winFrontGameClassifyCmsDo) Delete(models ...*model.WinFrontGameClassifyCms) (result gen.ResultInfo, err error) {
 	return w.DO.Delete(models)
 }
 
-func (w *winFrontGameClassifyCmDo) withDO(do gen.Dao) *winFrontGameClassifyCmDo {
+func (w *winFrontGameClassifyCmsDo) withDO(do gen.Dao) *winFrontGameClassifyCmsDo {
 	w.DO = *do.(*gen.DO)
 	return w
 }
