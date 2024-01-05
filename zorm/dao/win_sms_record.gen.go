@@ -34,6 +34,7 @@ func newWinSmsRecord(db *gorm.DB, opts ...gen.DOOption) winSmsRecord {
 	_winSmsRecord.SendSmsType = field.NewString(tableName, "send_sms_type")
 	_winSmsRecord.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winSmsRecord.UpdatedAt = field.NewInt64(tableName, "updated_at")
+	_winSmsRecord.IP = field.NewString(tableName, "ip")
 
 	_winSmsRecord.fillFieldMap()
 
@@ -51,6 +52,7 @@ type winSmsRecord struct {
 	SendSmsType field.String // 发送短信类型
 	CreatedAt   field.Int64
 	UpdatedAt   field.Int64
+	IP          field.String // ip地址
 
 	fieldMap map[string]field.Expr
 }
@@ -74,6 +76,7 @@ func (w *winSmsRecord) updateTableName(table string) *winSmsRecord {
 	w.SendSmsType = field.NewString(table, "send_sms_type")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
+	w.IP = field.NewString(table, "ip")
 
 	w.fillFieldMap()
 
@@ -90,7 +93,7 @@ func (w *winSmsRecord) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (w *winSmsRecord) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 7)
+	w.fieldMap = make(map[string]field.Expr, 8)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["account"] = w.Account
 	w.fieldMap["code"] = w.Code
@@ -98,6 +101,7 @@ func (w *winSmsRecord) fillFieldMap() {
 	w.fieldMap["send_sms_type"] = w.SendSmsType
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
+	w.fieldMap["ip"] = w.IP
 }
 
 func (w winSmsRecord) clone(db *gorm.DB) winSmsRecord {
