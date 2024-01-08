@@ -130,7 +130,9 @@ var (
 	XxlJobLogglue                     *xxlJobLogglue
 	XxlJobRegistry                    *xxlJobRegistry
 	XxlJobUser                        *xxlJobUser
-	OrderSettle *orderSettle
+	OrderSettle                       *orderSettle
+	LevelFreeGame                     *levelFreeGame
+	WinAuthRuleMap                    *winAuthRuleMap
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -248,6 +250,8 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	XxlJobRegistry = &Q.XxlJobRegistry
 	XxlJobUser = &Q.XxlJobUser
 	OrderSettle = &Q.OrderSettle
+    LevelFreeGame = &Q.LevelFreeGame
+	WinAuthRuleMap = &Q.WinAuthRuleMap
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
@@ -365,7 +369,9 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		XxlJobLogglue:                     newXxlJobLogglue(db, opts...),
 		XxlJobRegistry:                    newXxlJobRegistry(db, opts...),
 		XxlJobUser:                        newXxlJobUser(db, opts...),
-		OrderSettle: newOrderSettle(db, opts...),
+		OrderSettle:                       newOrderSettle(db, opts...),
+		LevelFreeGame:                     newLevelFreeGame(db,opts...),
+		WinAuthRuleMap:                    newWinAuthRuleMap(db,opts...),
 	}
 }
 
@@ -485,6 +491,9 @@ type Query struct {
 	XxlJobRegistry                    xxlJobRegistry
 	XxlJobUser                        xxlJobUser
 	OrderSettle orderSettle
+	LevelFreeGame                     levelFreeGame
+	WinAuthRuleMap                    winAuthRuleMap
+
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -605,6 +614,8 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		XxlJobRegistry:                    q.XxlJobRegistry.clone(db),
 		XxlJobUser:                        q.XxlJobUser.clone(db),
 		OrderSettle: q.OrderSettle.clone(db),
+		LevelFreeGame: q.LevelFreeGame.clone(db),
+		WinAuthRuleMap: q.WinAuthRuleMap.clone(db),
 	}
 }
 
@@ -732,6 +743,8 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		XxlJobRegistry:                    q.XxlJobRegistry.replaceDB(db),
 		XxlJobUser:                        q.XxlJobUser.replaceDB(db),
 		OrderSettle: q.OrderSettle.replaceDB(db),
+		LevelFreeGame: q.LevelFreeGame.replaceDB(db),
+		WinAuthRuleMap: q.WinAuthRuleMap.replaceDB(db),
 	}
 }
 
@@ -849,6 +862,8 @@ type queryCtx struct {
 	XxlJobRegistry                    IXxlJobRegistryDo
 	XxlJobUser                        IXxlJobUserDo
 	OrderSettle IOrderSettleDo
+	LevelFreeGame ILevelFreeGameDo
+	WinAuthRuleMap IWinAuthRuleMapDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -966,6 +981,8 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		XxlJobRegistry:                    q.XxlJobRegistry.WithContext(ctx),
 		XxlJobUser:                        q.XxlJobUser.WithContext(ctx),
 		OrderSettle: q.OrderSettle.WithContext(ctx),
+		LevelFreeGame: q.LevelFreeGame.WithContext(ctx),
+		WinAuthRuleMap: q.WinAuthRuleMap.WithContext(ctx),
 	}
 }
 
