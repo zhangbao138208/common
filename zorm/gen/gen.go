@@ -9,7 +9,8 @@ import (
 	"strings"
 )
 
-const dsn = "root:scott123456@(16.162.51.186:3306)/filbet_dev_main?charset=utf8mb4&parseTime=True&loc=Local"
+//const dsn = "root:scott123456@(16.162.51.186:3306)/filbet_dev_main?charset=utf8mb4&parseTime=True&loc=Local"
+const dsn = "root:scott123456@(10.0.99.10:3306)/filbet_dev_main?charset=utf8mb4&parseTime=True&loc=Local"
 
 // Case2Camel 下划线转驼峰(大驼峰)
 func Case2Camel(name string) string {
