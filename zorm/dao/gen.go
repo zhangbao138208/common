@@ -98,7 +98,7 @@ var (
 	WinPayPlatConfig                  *winPayPlatConfig
 	WinPlatList                       *winPlatList
 	WinPlatList230629                 *winPlatList230629
-	WinPromotion                      *winPromotion
+	WinPromotion                      *winPromotions
 	WinPromotionsInfo                 *winPromotionsInfo
 	WinSendSmsReq                     *winSendSmsReq
 	WinSetting                        *winSetting
@@ -461,7 +461,7 @@ type Query struct {
 	WinPayPlatConfig                  winPayPlatConfig
 	WinPlatList                       winPlatList
 	WinPlatList230629                 winPlatList230629
-	WinPromotion                      winPromotion
+	WinPromotion                      winPromotions
 	WinPromotionsInfo                 winPromotionsInfo
 	WinSendSmsReq                     winSendSmsReq
 	WinSetting                        winSetting
@@ -834,7 +834,7 @@ type queryCtx struct {
 	WinPayPlatConfig                  IWinPayPlatConfigDo
 	WinPlatList                       IWinPlatListDo
 	WinPlatList230629                 IWinPlatList230629Do
-	WinPromotion                      IWinPromotionDo
+	WinPromotion                      IWinPromotionsDo
 	WinPromotionsInfo                 IWinPromotionsInfoDo
 	WinSendSmsReq                     IWinSendSmsReqDo
 	WinSetting                        IWinSettingDo
