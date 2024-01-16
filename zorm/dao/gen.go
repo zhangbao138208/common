@@ -339,7 +339,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinPayPlatConfig:                  newWinPayPlatConfig(db, opts...),
 		WinPlatList:                       newWinPlatList(db, opts...),
 		WinPlatList230629:                 newWinPlatList230629(db, opts...),
-		WinPromotion:                      newWinPromotion(db, opts...),
+		WinPromotion:                      newWinPromotions(db, opts...),
 		WinPromotionsInfo:                 newWinPromotionsInfo(db, opts...),
 		WinSendSmsReq:                     newWinSendSmsReq(db, opts...),
 		WinSetting:                        newWinSetting(db, opts...),
