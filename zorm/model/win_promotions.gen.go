@@ -4,20 +4,22 @@
 
 package model
 
-const TableNameWinPromotion = "win_promotions"
+const TableNameWinPromotions = "win_promotions"
 
-// WinPromotion mapped from table <win_promotions>
-type WinPromotion struct {
+// WinPromotions mapped from table <win_promotions>
+type WinPromotions struct {
 	ID             int64  `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id,string"`
+	Lang           string `gorm:"column:lang;type:varchar(100);not null;default:en;comment:语言" json:"lang"`                                                                                      // 语言
 	Code           string `gorm:"column:code;type:varchar(64);not null;comment:活动标识:首充优惠-First Deposit Bonus 续充优惠-Second Deposit Bonus 首单包赔-Risk-Free Bet 快乐周末-Happy Weekend Bonus" json:"code"` // 活动标识:首充优惠-First Deposit Bonus 续充优惠-Second Deposit Bonus 首单包赔-Risk-Free Bet 快乐周末-Happy Weekend Bonus
 	CodeZh         string `gorm:"column:code_zh;type:varchar(256);not null;comment:名称中文" json:"codeZh"`                                                                                          // 名称中文
+	DescriptZh     string `gorm:"column:descript_zh;type:longtext;comment:详细描述-中文" json:"descriptZh"`                                                                                            // 详细描述-中文
 	Img            string `gorm:"column:img;type:varchar(1024);not null;comment:图片" json:"img"`                                                                                                  // 图片
 	Category       string `gorm:"column:category;type:varchar(16);not null;default:0;comment:类型:1-充值优惠 2-豪礼赠送 3-新活动" json:"category"`                                                            // 类型:1-充值优惠 2-豪礼赠送 3-新活动
 	GameType       int64  `gorm:"column:game_type;type:tinyint;not null;comment:活动游戏类型，见字典dic_promotion_game_type" json:"gameType"`                                                              // 活动游戏类型，见字典dic_promotion_game_type
 	Info           string `gorm:"column:info;type:longtext;comment:补充信息" json:"info"`                                                                                                            // 补充信息
 	Descript       string `gorm:"column:descript;type:longtext;comment:详情描述" json:"descript"`                                                                                                    // 详情描述
 	StartedAt      int64  `gorm:"column:started_at;type:int;comment:开始时间" json:"startedAt"`                                                                                                      // 开始时间
-	Ladder         string `gorm:"column:ladder;type:text;comment:新活动阶梯" json:"ladder"`                                                                                                           // 新活动阶梯
+	Ladder         string `gorm:"column:ladder;type:mediumtext;comment:新活动阶梯" json:"ladder"`                                                                                                     // 新活动阶梯
 	PayoutCategory int64  `gorm:"column:payout_category;type:int;not null;comment:派彩类型: 0-自动派彩 1-人工派彩 2-手动派彩" json:"payoutCategory"`                                                             // 派彩类型: 0-自动派彩 1-人工派彩 2-手动派彩
 	EndedAt        int64  `gorm:"column:ended_at;type:int;comment:结算时间" json:"endedAt"`                                                                                                          // 结算时间
 	Sort           int64  `gorm:"column:sort;type:int;not null;default:100;comment:排序(从高到底、ID降序)" json:"sort"`                                                                                   // 排序(从高到底、ID降序)
@@ -27,7 +29,7 @@ type WinPromotion struct {
 	OperatorName   string `gorm:"column:operator_name;type:varchar(32);comment:操作人姓名" json:"operatorName"` // 操作人姓名
 }
 
-// TableName WinPromotion's table name
-func (*WinPromotion) TableName() string {
-	return TableNameWinPromotion
+// TableName WinPromotions's table name
+func (*WinPromotions) TableName() string {
+	return TableNameWinPromotions
 }

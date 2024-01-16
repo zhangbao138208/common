@@ -19,44 +19,48 @@ import (
 	"gitlab.skig.tech/zero-core/common/zorm/model"
 )
 
-func newWinPromotion(db *gorm.DB, opts ...gen.DOOption) winPromotion {
-	_winPromotion := winPromotion{}
+func newWinPromotions(db *gorm.DB, opts ...gen.DOOption) winPromotions {
+	_winPromotions := winPromotions{}
 
-	_winPromotion.winPromotionDo.UseDB(db, opts...)
-	_winPromotion.winPromotionDo.UseModel(&model.WinPromotion{})
+	_winPromotions.winPromotionsDo.UseDB(db, opts...)
+	_winPromotions.winPromotionsDo.UseModel(&model.WinPromotions{})
 
-	tableName := _winPromotion.winPromotionDo.TableName()
-	_winPromotion.ALL = field.NewAsterisk(tableName)
-	_winPromotion.ID = field.NewInt64(tableName, "id")
-	_winPromotion.Code = field.NewString(tableName, "code")
-	_winPromotion.CodeZh = field.NewString(tableName, "code_zh")
-	_winPromotion.Img = field.NewString(tableName, "img")
-	_winPromotion.Category = field.NewString(tableName, "category")
-	_winPromotion.GameType = field.NewInt64(tableName, "game_type")
-	_winPromotion.Info = field.NewString(tableName, "info")
-	_winPromotion.Descript = field.NewString(tableName, "descript")
-	_winPromotion.StartedAt = field.NewInt64(tableName, "started_at")
-	_winPromotion.Ladder = field.NewString(tableName, "ladder")
-	_winPromotion.PayoutCategory = field.NewInt64(tableName, "payout_category")
-	_winPromotion.EndedAt = field.NewInt64(tableName, "ended_at")
-	_winPromotion.Sort = field.NewInt64(tableName, "sort")
-	_winPromotion.Status = field.NewInt64(tableName, "status")
-	_winPromotion.CreatedAt = field.NewInt64(tableName, "created_at")
-	_winPromotion.UpdatedAt = field.NewInt64(tableName, "updated_at")
-	_winPromotion.OperatorName = field.NewString(tableName, "operator_name")
+	tableName := _winPromotions.winPromotionsDo.TableName()
+	_winPromotions.ALL = field.NewAsterisk(tableName)
+	_winPromotions.ID = field.NewInt64(tableName, "id")
+	_winPromotions.Lang = field.NewString(tableName, "lang")
+	_winPromotions.Code = field.NewString(tableName, "code")
+	_winPromotions.CodeZh = field.NewString(tableName, "code_zh")
+	_winPromotions.DescriptZh = field.NewString(tableName, "descript_zh")
+	_winPromotions.Img = field.NewString(tableName, "img")
+	_winPromotions.Category = field.NewString(tableName, "category")
+	_winPromotions.GameType = field.NewInt64(tableName, "game_type")
+	_winPromotions.Info = field.NewString(tableName, "info")
+	_winPromotions.Descript = field.NewString(tableName, "descript")
+	_winPromotions.StartedAt = field.NewInt64(tableName, "started_at")
+	_winPromotions.Ladder = field.NewString(tableName, "ladder")
+	_winPromotions.PayoutCategory = field.NewInt64(tableName, "payout_category")
+	_winPromotions.EndedAt = field.NewInt64(tableName, "ended_at")
+	_winPromotions.Sort = field.NewInt64(tableName, "sort")
+	_winPromotions.Status = field.NewInt64(tableName, "status")
+	_winPromotions.CreatedAt = field.NewInt64(tableName, "created_at")
+	_winPromotions.UpdatedAt = field.NewInt64(tableName, "updated_at")
+	_winPromotions.OperatorName = field.NewString(tableName, "operator_name")
 
-	_winPromotion.fillFieldMap()
+	_winPromotions.fillFieldMap()
 
-	return _winPromotion
+	return _winPromotions
 }
 
-type winPromotion struct {
-	winPromotionDo
+type winPromotions struct {
+	winPromotionsDo
 
 	ALL            field.Asterisk
 	ID             field.Int64
+	Lang           field.String // 语言
 	Code           field.String // 活动标识:首充优惠-First Deposit Bonus 续充优惠-Second Deposit Bonus 首单包赔-Risk-Free Bet 快乐周末-Happy Weekend Bonus
 	CodeZh         field.String // 名称中文
+	DescriptZh     field.String // 详细描述-中文
 	Img            field.String // 图片
 	Category       field.String // 类型:1-充值优惠 2-豪礼赠送 3-新活动
 	GameType       field.Int64  // 活动游戏类型，见字典dic_promotion_game_type
@@ -75,21 +79,23 @@ type winPromotion struct {
 	fieldMap map[string]field.Expr
 }
 
-func (w winPromotion) Table(newTableName string) *winPromotion {
-	w.winPromotionDo.UseTable(newTableName)
+func (w winPromotions) Table(newTableName string) *winPromotions {
+	w.winPromotionsDo.UseTable(newTableName)
 	return w.updateTableName(newTableName)
 }
 
-func (w winPromotion) As(alias string) *winPromotion {
-	w.winPromotionDo.DO = *(w.winPromotionDo.As(alias).(*gen.DO))
+func (w winPromotions) As(alias string) *winPromotions {
+	w.winPromotionsDo.DO = *(w.winPromotionsDo.As(alias).(*gen.DO))
 	return w.updateTableName(alias)
 }
 
-func (w *winPromotion) updateTableName(table string) *winPromotion {
+func (w *winPromotions) updateTableName(table string) *winPromotions {
 	w.ALL = field.NewAsterisk(table)
 	w.ID = field.NewInt64(table, "id")
+	w.Lang = field.NewString(table, "lang")
 	w.Code = field.NewString(table, "code")
 	w.CodeZh = field.NewString(table, "code_zh")
+	w.DescriptZh = field.NewString(table, "descript_zh")
 	w.Img = field.NewString(table, "img")
 	w.Category = field.NewString(table, "category")
 	w.GameType = field.NewInt64(table, "game_type")
@@ -110,7 +116,7 @@ func (w *winPromotion) updateTableName(table string) *winPromotion {
 	return w
 }
 
-func (w *winPromotion) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
+func (w *winPromotions) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 	_f, ok := w.fieldMap[fieldName]
 	if !ok || _f == nil {
 		return nil, false
@@ -119,11 +125,13 @@ func (w *winPromotion) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 	return _oe, ok
 }
 
-func (w *winPromotion) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 17)
+func (w *winPromotions) fillFieldMap() {
+	w.fieldMap = make(map[string]field.Expr, 19)
 	w.fieldMap["id"] = w.ID
+	w.fieldMap["lang"] = w.Lang
 	w.fieldMap["code"] = w.Code
 	w.fieldMap["code_zh"] = w.CodeZh
+	w.fieldMap["descript_zh"] = w.DescriptZh
 	w.fieldMap["img"] = w.Img
 	w.fieldMap["category"] = w.Category
 	w.fieldMap["game_type"] = w.GameType
@@ -140,58 +148,58 @@ func (w *winPromotion) fillFieldMap() {
 	w.fieldMap["operator_name"] = w.OperatorName
 }
 
-func (w winPromotion) clone(db *gorm.DB) winPromotion {
-	w.winPromotionDo.ReplaceConnPool(db.Statement.ConnPool)
+func (w winPromotions) clone(db *gorm.DB) winPromotions {
+	w.winPromotionsDo.ReplaceConnPool(db.Statement.ConnPool)
 	return w
 }
 
-func (w winPromotion) replaceDB(db *gorm.DB) winPromotion {
-	w.winPromotionDo.ReplaceDB(db)
+func (w winPromotions) replaceDB(db *gorm.DB) winPromotions {
+	w.winPromotionsDo.ReplaceDB(db)
 	return w
 }
 
-type winPromotionDo struct{ gen.DO }
+type winPromotionsDo struct{ gen.DO }
 
-type IWinPromotionDo interface {
+type IWinPromotionsDo interface {
 	gen.SubQuery
-	Debug() IWinPromotionDo
-	WithContext(ctx context.Context) IWinPromotionDo
+	Debug() IWinPromotionsDo
+	WithContext(ctx context.Context) IWinPromotionsDo
 	WithResult(fc func(tx gen.Dao)) gen.ResultInfo
 	ReplaceDB(db *gorm.DB)
-	ReadDB() IWinPromotionDo
-	WriteDB() IWinPromotionDo
+	ReadDB() IWinPromotionsDo
+	WriteDB() IWinPromotionsDo
 	As(alias string) gen.Dao
-	Session(config *gorm.Session) IWinPromotionDo
+	Session(config *gorm.Session) IWinPromotionsDo
 	Columns(cols ...field.Expr) gen.Columns
-	Clauses(conds ...clause.Expression) IWinPromotionDo
-	Not(conds ...gen.Condition) IWinPromotionDo
-	Or(conds ...gen.Condition) IWinPromotionDo
-	Select(conds ...field.Expr) IWinPromotionDo
-	Where(conds ...gen.Condition) IWinPromotionDo
-	Order(conds ...field.Expr) IWinPromotionDo
-	Distinct(cols ...field.Expr) IWinPromotionDo
-	Omit(cols ...field.Expr) IWinPromotionDo
-	Join(table schema.Tabler, on ...field.Expr) IWinPromotionDo
-	LeftJoin(table schema.Tabler, on ...field.Expr) IWinPromotionDo
-	RightJoin(table schema.Tabler, on ...field.Expr) IWinPromotionDo
-	Group(cols ...field.Expr) IWinPromotionDo
-	Having(conds ...gen.Condition) IWinPromotionDo
-	Limit(limit int) IWinPromotionDo
-	Offset(offset int) IWinPromotionDo
+	Clauses(conds ...clause.Expression) IWinPromotionsDo
+	Not(conds ...gen.Condition) IWinPromotionsDo
+	Or(conds ...gen.Condition) IWinPromotionsDo
+	Select(conds ...field.Expr) IWinPromotionsDo
+	Where(conds ...gen.Condition) IWinPromotionsDo
+	Order(conds ...field.Expr) IWinPromotionsDo
+	Distinct(cols ...field.Expr) IWinPromotionsDo
+	Omit(cols ...field.Expr) IWinPromotionsDo
+	Join(table schema.Tabler, on ...field.Expr) IWinPromotionsDo
+	LeftJoin(table schema.Tabler, on ...field.Expr) IWinPromotionsDo
+	RightJoin(table schema.Tabler, on ...field.Expr) IWinPromotionsDo
+	Group(cols ...field.Expr) IWinPromotionsDo
+	Having(conds ...gen.Condition) IWinPromotionsDo
+	Limit(limit int) IWinPromotionsDo
+	Offset(offset int) IWinPromotionsDo
 	Count() (count int64, err error)
-	Scopes(funcs ...func(gen.Dao) gen.Dao) IWinPromotionDo
-	Unscoped() IWinPromotionDo
-	Create(values ...*model.WinPromotion) error
-	CreateInBatches(values []*model.WinPromotion, batchSize int) error
-	Save(values ...*model.WinPromotion) error
-	First() (*model.WinPromotion, error)
-	Take() (*model.WinPromotion, error)
-	Last() (*model.WinPromotion, error)
-	Find() ([]*model.WinPromotion, error)
-	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinPromotion, err error)
-	FindInBatches(result *[]*model.WinPromotion, batchSize int, fc func(tx gen.Dao, batch int) error) error
+	Scopes(funcs ...func(gen.Dao) gen.Dao) IWinPromotionsDo
+	Unscoped() IWinPromotionsDo
+	Create(values ...*model.WinPromotions) error
+	CreateInBatches(values []*model.WinPromotions, batchSize int) error
+	Save(values ...*model.WinPromotions) error
+	First() (*model.WinPromotions, error)
+	Take() (*model.WinPromotions, error)
+	Last() (*model.WinPromotions, error)
+	Find() ([]*model.WinPromotions, error)
+	FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinPromotions, err error)
+	FindInBatches(result *[]*model.WinPromotions, batchSize int, fc func(tx gen.Dao, batch int) error) error
 	Pluck(column field.Expr, dest interface{}) error
-	Delete(...*model.WinPromotion) (info gen.ResultInfo, err error)
+	Delete(...*model.WinPromotions) (info gen.ResultInfo, err error)
 	Update(column field.Expr, value interface{}) (info gen.ResultInfo, err error)
 	UpdateSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	Updates(value interface{}) (info gen.ResultInfo, err error)
@@ -199,163 +207,163 @@ type IWinPromotionDo interface {
 	UpdateColumnSimple(columns ...field.AssignExpr) (info gen.ResultInfo, err error)
 	UpdateColumns(value interface{}) (info gen.ResultInfo, err error)
 	UpdateFrom(q gen.SubQuery) gen.Dao
-	Attrs(attrs ...field.AssignExpr) IWinPromotionDo
-	Assign(attrs ...field.AssignExpr) IWinPromotionDo
-	Joins(fields ...field.RelationField) IWinPromotionDo
-	Preload(fields ...field.RelationField) IWinPromotionDo
-	FirstOrInit() (*model.WinPromotion, error)
-	FirstOrCreate() (*model.WinPromotion, error)
-	FindByPage(offset int, limit int) (result []*model.WinPromotion, count int64, err error)
+	Attrs(attrs ...field.AssignExpr) IWinPromotionsDo
+	Assign(attrs ...field.AssignExpr) IWinPromotionsDo
+	Joins(fields ...field.RelationField) IWinPromotionsDo
+	Preload(fields ...field.RelationField) IWinPromotionsDo
+	FirstOrInit() (*model.WinPromotions, error)
+	FirstOrCreate() (*model.WinPromotions, error)
+	FindByPage(offset int, limit int) (result []*model.WinPromotions, count int64, err error)
 	ScanByPage(result interface{}, offset int, limit int) (count int64, err error)
 	Scan(result interface{}) (err error)
-	Returning(value interface{}, columns ...string) IWinPromotionDo
+	Returning(value interface{}, columns ...string) IWinPromotionsDo
 	UnderlyingDB() *gorm.DB
 	schema.Tabler
 }
 
-func (w winPromotionDo) Debug() IWinPromotionDo {
+func (w winPromotionsDo) Debug() IWinPromotionsDo {
 	return w.withDO(w.DO.Debug())
 }
 
-func (w winPromotionDo) WithContext(ctx context.Context) IWinPromotionDo {
+func (w winPromotionsDo) WithContext(ctx context.Context) IWinPromotionsDo {
 	return w.withDO(w.DO.WithContext(ctx))
 }
 
-func (w winPromotionDo) ReadDB() IWinPromotionDo {
+func (w winPromotionsDo) ReadDB() IWinPromotionsDo {
 	return w.Clauses(dbresolver.Read)
 }
 
-func (w winPromotionDo) WriteDB() IWinPromotionDo {
+func (w winPromotionsDo) WriteDB() IWinPromotionsDo {
 	return w.Clauses(dbresolver.Write)
 }
 
-func (w winPromotionDo) Session(config *gorm.Session) IWinPromotionDo {
+func (w winPromotionsDo) Session(config *gorm.Session) IWinPromotionsDo {
 	return w.withDO(w.DO.Session(config))
 }
 
-func (w winPromotionDo) Clauses(conds ...clause.Expression) IWinPromotionDo {
+func (w winPromotionsDo) Clauses(conds ...clause.Expression) IWinPromotionsDo {
 	return w.withDO(w.DO.Clauses(conds...))
 }
 
-func (w winPromotionDo) Returning(value interface{}, columns ...string) IWinPromotionDo {
+func (w winPromotionsDo) Returning(value interface{}, columns ...string) IWinPromotionsDo {
 	return w.withDO(w.DO.Returning(value, columns...))
 }
 
-func (w winPromotionDo) Not(conds ...gen.Condition) IWinPromotionDo {
+func (w winPromotionsDo) Not(conds ...gen.Condition) IWinPromotionsDo {
 	return w.withDO(w.DO.Not(conds...))
 }
 
-func (w winPromotionDo) Or(conds ...gen.Condition) IWinPromotionDo {
+func (w winPromotionsDo) Or(conds ...gen.Condition) IWinPromotionsDo {
 	return w.withDO(w.DO.Or(conds...))
 }
 
-func (w winPromotionDo) Select(conds ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Select(conds ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Select(conds...))
 }
 
-func (w winPromotionDo) Where(conds ...gen.Condition) IWinPromotionDo {
+func (w winPromotionsDo) Where(conds ...gen.Condition) IWinPromotionsDo {
 	return w.withDO(w.DO.Where(conds...))
 }
 
-func (w winPromotionDo) Order(conds ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Order(conds ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Order(conds...))
 }
 
-func (w winPromotionDo) Distinct(cols ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Distinct(cols ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Distinct(cols...))
 }
 
-func (w winPromotionDo) Omit(cols ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Omit(cols ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Omit(cols...))
 }
 
-func (w winPromotionDo) Join(table schema.Tabler, on ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Join(table schema.Tabler, on ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Join(table, on...))
 }
 
-func (w winPromotionDo) LeftJoin(table schema.Tabler, on ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) LeftJoin(table schema.Tabler, on ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.LeftJoin(table, on...))
 }
 
-func (w winPromotionDo) RightJoin(table schema.Tabler, on ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) RightJoin(table schema.Tabler, on ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.RightJoin(table, on...))
 }
 
-func (w winPromotionDo) Group(cols ...field.Expr) IWinPromotionDo {
+func (w winPromotionsDo) Group(cols ...field.Expr) IWinPromotionsDo {
 	return w.withDO(w.DO.Group(cols...))
 }
 
-func (w winPromotionDo) Having(conds ...gen.Condition) IWinPromotionDo {
+func (w winPromotionsDo) Having(conds ...gen.Condition) IWinPromotionsDo {
 	return w.withDO(w.DO.Having(conds...))
 }
 
-func (w winPromotionDo) Limit(limit int) IWinPromotionDo {
+func (w winPromotionsDo) Limit(limit int) IWinPromotionsDo {
 	return w.withDO(w.DO.Limit(limit))
 }
 
-func (w winPromotionDo) Offset(offset int) IWinPromotionDo {
+func (w winPromotionsDo) Offset(offset int) IWinPromotionsDo {
 	return w.withDO(w.DO.Offset(offset))
 }
 
-func (w winPromotionDo) Scopes(funcs ...func(gen.Dao) gen.Dao) IWinPromotionDo {
+func (w winPromotionsDo) Scopes(funcs ...func(gen.Dao) gen.Dao) IWinPromotionsDo {
 	return w.withDO(w.DO.Scopes(funcs...))
 }
 
-func (w winPromotionDo) Unscoped() IWinPromotionDo {
+func (w winPromotionsDo) Unscoped() IWinPromotionsDo {
 	return w.withDO(w.DO.Unscoped())
 }
 
-func (w winPromotionDo) Create(values ...*model.WinPromotion) error {
+func (w winPromotionsDo) Create(values ...*model.WinPromotions) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return w.DO.Create(values)
 }
 
-func (w winPromotionDo) CreateInBatches(values []*model.WinPromotion, batchSize int) error {
+func (w winPromotionsDo) CreateInBatches(values []*model.WinPromotions, batchSize int) error {
 	return w.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (w winPromotionDo) Save(values ...*model.WinPromotion) error {
+func (w winPromotionsDo) Save(values ...*model.WinPromotions) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return w.DO.Save(values)
 }
 
-func (w winPromotionDo) First() (*model.WinPromotion, error) {
+func (w winPromotionsDo) First() (*model.WinPromotions, error) {
 	if result, err := w.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinPromotion), nil
+		return result.(*model.WinPromotions), nil
 	}
 }
 
-func (w winPromotionDo) Take() (*model.WinPromotion, error) {
+func (w winPromotionsDo) Take() (*model.WinPromotions, error) {
 	if result, err := w.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinPromotion), nil
+		return result.(*model.WinPromotions), nil
 	}
 }
 
-func (w winPromotionDo) Last() (*model.WinPromotion, error) {
+func (w winPromotionsDo) Last() (*model.WinPromotions, error) {
 	if result, err := w.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinPromotion), nil
+		return result.(*model.WinPromotions), nil
 	}
 }
 
-func (w winPromotionDo) Find() ([]*model.WinPromotion, error) {
+func (w winPromotionsDo) Find() ([]*model.WinPromotions, error) {
 	result, err := w.DO.Find()
-	return result.([]*model.WinPromotion), err
+	return result.([]*model.WinPromotions), err
 }
 
-func (w winPromotionDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinPromotion, err error) {
-	buf := make([]*model.WinPromotion, 0, batchSize)
+func (w winPromotionsDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.WinPromotions, err error) {
+	buf := make([]*model.WinPromotions, 0, batchSize)
 	err = w.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -363,49 +371,49 @@ func (w winPromotionDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int
 	return results, err
 }
 
-func (w winPromotionDo) FindInBatches(result *[]*model.WinPromotion, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (w winPromotionsDo) FindInBatches(result *[]*model.WinPromotions, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return w.DO.FindInBatches(result, batchSize, fc)
 }
 
-func (w winPromotionDo) Attrs(attrs ...field.AssignExpr) IWinPromotionDo {
+func (w winPromotionsDo) Attrs(attrs ...field.AssignExpr) IWinPromotionsDo {
 	return w.withDO(w.DO.Attrs(attrs...))
 }
 
-func (w winPromotionDo) Assign(attrs ...field.AssignExpr) IWinPromotionDo {
+func (w winPromotionsDo) Assign(attrs ...field.AssignExpr) IWinPromotionsDo {
 	return w.withDO(w.DO.Assign(attrs...))
 }
 
-func (w winPromotionDo) Joins(fields ...field.RelationField) IWinPromotionDo {
+func (w winPromotionsDo) Joins(fields ...field.RelationField) IWinPromotionsDo {
 	for _, _f := range fields {
 		w = *w.withDO(w.DO.Joins(_f))
 	}
 	return &w
 }
 
-func (w winPromotionDo) Preload(fields ...field.RelationField) IWinPromotionDo {
+func (w winPromotionsDo) Preload(fields ...field.RelationField) IWinPromotionsDo {
 	for _, _f := range fields {
 		w = *w.withDO(w.DO.Preload(_f))
 	}
 	return &w
 }
 
-func (w winPromotionDo) FirstOrInit() (*model.WinPromotion, error) {
+func (w winPromotionsDo) FirstOrInit() (*model.WinPromotions, error) {
 	if result, err := w.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinPromotion), nil
+		return result.(*model.WinPromotions), nil
 	}
 }
 
-func (w winPromotionDo) FirstOrCreate() (*model.WinPromotion, error) {
+func (w winPromotionsDo) FirstOrCreate() (*model.WinPromotions, error) {
 	if result, err := w.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.WinPromotion), nil
+		return result.(*model.WinPromotions), nil
 	}
 }
 
-func (w winPromotionDo) FindByPage(offset int, limit int) (result []*model.WinPromotion, count int64, err error) {
+func (w winPromotionsDo) FindByPage(offset int, limit int) (result []*model.WinPromotions, count int64, err error) {
 	result, err = w.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -420,7 +428,7 @@ func (w winPromotionDo) FindByPage(offset int, limit int) (result []*model.WinPr
 	return
 }
 
-func (w winPromotionDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
+func (w winPromotionsDo) ScanByPage(result interface{}, offset int, limit int) (count int64, err error) {
 	count, err = w.Count()
 	if err != nil {
 		return
@@ -430,15 +438,15 @@ func (w winPromotionDo) ScanByPage(result interface{}, offset int, limit int) (c
 	return
 }
 
-func (w winPromotionDo) Scan(result interface{}) (err error) {
+func (w winPromotionsDo) Scan(result interface{}) (err error) {
 	return w.DO.Scan(result)
 }
 
-func (w winPromotionDo) Delete(models ...*model.WinPromotion) (result gen.ResultInfo, err error) {
+func (w winPromotionsDo) Delete(models ...*model.WinPromotions) (result gen.ResultInfo, err error) {
 	return w.DO.Delete(models)
 }
 
-func (w *winPromotionDo) withDO(do gen.Dao) *winPromotionDo {
+func (w *winPromotionsDo) withDO(do gen.Dao) *winPromotionsDo {
 	w.DO = *do.(*gen.DO)
 	return w
 }
