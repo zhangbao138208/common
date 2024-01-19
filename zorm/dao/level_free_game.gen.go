@@ -5,18 +5,18 @@
 package dao
 
 import (
-	"context"
+"context"
 
-	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
-	"gorm.io/gorm/schema"
+"gorm.io/gorm"
+"gorm.io/gorm/clause"
+"gorm.io/gorm/schema"
 
-	"gorm.io/gen"
-	"gorm.io/gen/field"
+"gorm.io/gen"
+"gorm.io/gen/field"
 
-	"gorm.io/plugin/dbresolver"
+"gorm.io/plugin/dbresolver"
 
-	"gitlab.skig.tech/zero-core/common/zorm/model"
+"gitlab.skig.tech/zero-core/common/zorm/model"
 )
 
 func newLevelFreeGame(db *gorm.DB, opts ...gen.DOOption) levelFreeGame {
@@ -34,6 +34,7 @@ func newLevelFreeGame(db *gorm.DB, opts ...gen.DOOption) levelFreeGame {
 	_levelFreeGame.SpinNumber = field.NewInt64(tableName, "spin_number")
 	_levelFreeGame.BetAmount = field.NewInt64(tableName, "bet_amount")
 	_levelFreeGame.ValidTime = field.NewInt64(tableName, "valid_time")
+	_levelFreeGame.Status = field.NewInt64(tableName, "status")
 
 	_levelFreeGame.fillFieldMap()
 
@@ -51,6 +52,11 @@ type levelFreeGame struct {
 	SpinNumber   field.Int64
 	BetAmount    field.Int64
 	ValidTime    field.Int64
+	/*
+	   游戏开启状态0:关闭，1:开启
+
+	*/
+	Status field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -74,6 +80,7 @@ func (l *levelFreeGame) updateTableName(table string) *levelFreeGame {
 	l.SpinNumber = field.NewInt64(table, "spin_number")
 	l.BetAmount = field.NewInt64(table, "bet_amount")
 	l.ValidTime = field.NewInt64(table, "valid_time")
+	l.Status = field.NewInt64(table, "status")
 
 	l.fillFieldMap()
 
@@ -90,7 +97,7 @@ func (l *levelFreeGame) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (l *levelFreeGame) fillFieldMap() {
-	l.fieldMap = make(map[string]field.Expr, 7)
+	l.fieldMap = make(map[string]field.Expr, 8)
 	l.fieldMap["id"] = l.ID
 	l.fieldMap["level_id"] = l.LevelID
 	l.fieldMap["game_provider"] = l.GameProvider
@@ -98,6 +105,7 @@ func (l *levelFreeGame) fillFieldMap() {
 	l.fieldMap["spin_number"] = l.SpinNumber
 	l.fieldMap["bet_amount"] = l.BetAmount
 	l.fieldMap["valid_time"] = l.ValidTime
+	l.fieldMap["status"] = l.Status
 }
 
 func (l levelFreeGame) clone(db *gorm.DB) levelFreeGame {

@@ -15,6 +15,11 @@ type LevelFreeGame struct {
 	SpinNumber   int64  `gorm:"column:spin_number;type:int;not null" json:"spinNumber"`
 	BetAmount    int64  `gorm:"column:bet_amount;type:int;not null" json:"betAmount"`
 	ValidTime    int64  `gorm:"column:valid_time;type:int;not null" json:"validTime"`
+	/*
+	   游戏开启状态0:关闭，1:开启
+
+	*/
+	Status int64 `gorm:"column:status;type:int unsigned;not null;comment:游戏开启状态0:关闭，1:开启\n" json:"status"`
 }
 
 // TableName LevelFreeGame's table name
