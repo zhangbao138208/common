@@ -11,14 +11,14 @@ const TableNameWinCoinUserGameTransfer = "win_coin_user_game_transfer"
 // WinCoinUserGameTransfer mapped from table <win_coin_user_game_transfer>
 type WinCoinUserGameTransfer struct {
 	ID             int64           `gorm:"column:id;type:bigint;primaryKey" json:"id,string"`
-	Coin           decimal.Decimal `gorm:"column:coin;type:decimal(15,4);not null;default:0.0000;comment:调账金额" json:"coin"`               // 调账金额
-	CoinBefore     decimal.Decimal `gorm:"column:coin_before;type:decimal(15,4);not null;default:0.0000;comment:调账前金额" json:"coinBefore"` // 调账前金额
-	UID            int64           `gorm:"column:uid;type:int;not null;comment:用户ID" json:"uid"`                                          // 用户ID
-	Username       string          `gorm:"column:username;type:varchar(32);not null;comment:用户名" json:"username"`                         // 用户名
-	Category       int64           `gorm:"column:category;type:int;not null;comment:调账原因:0-其他 1-误存调账 2-活动调账" json:"category"`             // 调账原因:0-其他 1-误存调账 2-活动调账
-	TransactionID  int64           `gorm:"column:transaction_id;type:bigint;not null;comment:第三方账变ID" json:"transactionId"`               // 第三方账变ID
-	GameProviderID int64           `gorm:"column:game_provider_id;type:int;not null;comment:游戏供应商ID" json:"gameProviderId"`               // 游戏供应商ID
-	Mark           string          `gorm:"column:mark;type:varchar(255);not null;comment:调账原因" json:"mark"`                               // 调账原因
+	Coin           decimal.Decimal `gorm:"column:coin;type:decimal(15,4);not null;default:0.0000" json:"coin"`
+	CoinBefore     decimal.Decimal `gorm:"column:coin_before;type:decimal(15,4);not null;default:0.0000" json:"coinBefore"`
+	UID            int64           `gorm:"column:uid;type:int;not null;comment:ID" json:"uid"` // ID
+	Username       string          `gorm:"column:username;type:varchar(32);not null" json:"username"`
+	Category       int64           `gorm:"column:category;type:int;not null;comment::0- 1- 2-" json:"category"`             // :0- 1- 2-
+	TransactionID  string          `gorm:"column:transaction_id;type:varchar(50);not null;comment:ID" json:"transactionId"` // ID
+	GameProviderID int64           `gorm:"column:game_provider_id;type:int;not null;comment:ID" json:"gameProviderId"`      // ID
+	Mark           string          `gorm:"column:mark;type:varchar(255);not null" json:"mark"`
 	CreatedAt      int64           `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	UpdatedAt      int64           `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
 }
