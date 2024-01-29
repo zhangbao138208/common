@@ -5,18 +5,18 @@
 package dao
 
 import (
-"context"
+	"context"
 
-"gorm.io/gorm"
-"gorm.io/gorm/clause"
-"gorm.io/gorm/schema"
+	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
+	"gorm.io/gorm/schema"
 
-"gorm.io/gen"
-"gorm.io/gen/field"
+	"gorm.io/gen"
+	"gorm.io/gen/field"
 
-"gorm.io/plugin/dbresolver"
+	"gorm.io/plugin/dbresolver"
 
-"gitlab.skig.tech/zero-core/common/zorm/model"
+	"gitlab.skig.tech/zero-core/common/zorm/model"
 )
 
 func newWinFreeGameRecord(db *gorm.DB, opts ...gen.DOOption) winFreeGameRecord {
@@ -37,6 +37,7 @@ func newWinFreeGameRecord(db *gorm.DB, opts ...gen.DOOption) winFreeGameRecord {
 	_winFreeGameRecord.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winFreeGameRecord.FinishedAt = field.NewInt64(tableName, "finished_at")
 	_winFreeGameRecord.SpinType = field.NewInt64(tableName, "spin_type")
+	_winFreeGameRecord.SpinAmount = field.NewInt64(tableName, "spin_amount")
 
 	_winFreeGameRecord.fillFieldMap()
 
@@ -57,6 +58,7 @@ type winFreeGameRecord struct {
 	CreatedAt  field.Int64
 	FinishedAt field.Int64
 	SpinType   field.Int64 //  0VIP 1
+	SpinAmount field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -83,6 +85,7 @@ func (w *winFreeGameRecord) updateTableName(table string) *winFreeGameRecord {
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.FinishedAt = field.NewInt64(table, "finished_at")
 	w.SpinType = field.NewInt64(table, "spin_type")
+	w.SpinAmount = field.NewInt64(table, "spin_amount")
 
 	w.fillFieldMap()
 
@@ -99,7 +102,7 @@ func (w *winFreeGameRecord) GetFieldByName(fieldName string) (field.OrderExpr, b
 }
 
 func (w *winFreeGameRecord) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 10)
+	w.fieldMap = make(map[string]field.Expr, 11)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["username"] = w.Username
 	w.fieldMap["bonus_id"] = w.BonusID
@@ -110,6 +113,7 @@ func (w *winFreeGameRecord) fillFieldMap() {
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["finished_at"] = w.FinishedAt
 	w.fieldMap["spin_type"] = w.SpinType
+	w.fieldMap["spin_amount"] = w.SpinAmount
 }
 
 func (w winFreeGameRecord) clone(db *gorm.DB) winFreeGameRecord {

@@ -18,6 +18,7 @@ type WinFreeGameRecord struct {
 	CreatedAt  int64  `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	FinishedAt int64  `gorm:"column:finished_at;type:bigint" json:"finishedAt"`
 	SpinType   int64  `gorm:"column:spin_type;type:int;comment: 0VIP 1" json:"spinType"` //  0VIP 1
+	SpinAmount int64  `gorm:"column:spin_amount;type:int" json:"spinAmount"`
 }
 
 // TableName WinFreeGameRecord's table name
