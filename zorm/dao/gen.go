@@ -135,6 +135,7 @@ var (
 	WinAuthRuleMap                    *winAuthRuleMap
 	WinFreeGameRecord                 *winFreeGameRecord
 	WinCoinUserGameTransfer *winCoinUserGameTransfer
+	WinFreeGameList *winFreeGameList
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -256,6 +257,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	WinAuthRuleMap = &Q.WinAuthRuleMap
 	WinFreeGameRecord = &Q.WinFreeGameRecord
 	WinCoinUserGameTransfer = &Q.WinCoinUserGameTransfer
+	WinFreeGameList = &Q.WinFreeGameList
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
@@ -378,6 +380,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinAuthRuleMap:                    newWinAuthRuleMap(db, opts...),
 		WinFreeGameRecord:                 newWinFreeGameRecord(db, opts...),
 		WinCoinUserGameTransfer: newWinCoinUserGameTransfer(db, opts...),
+		WinFreeGameList: newWinFreeGameList(db, opts...),
 	}
 }
 
@@ -501,6 +504,7 @@ type Query struct {
 	WinAuthRuleMap                    winAuthRuleMap
 	WinFreeGameRecord                 winFreeGameRecord
 	WinCoinUserGameTransfer winCoinUserGameTransfer
+	WinFreeGameList winFreeGameList
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -625,6 +629,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		WinAuthRuleMap:                    q.WinAuthRuleMap.clone(db),
 		WinFreeGameRecord:                 q.WinFreeGameRecord.clone(db),
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.clone(db),
+		WinFreeGameList: q.WinFreeGameList.clone(db),
 	}
 }
 
@@ -756,6 +761,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		WinAuthRuleMap:                    q.WinAuthRuleMap.replaceDB(db),
 		WinFreeGameRecord:                 q.WinFreeGameRecord.replaceDB(db),
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.replaceDB(db),
+		WinFreeGameList: q.WinFreeGameList.replaceDB(db),
 	}
 }
 
@@ -877,6 +883,7 @@ type queryCtx struct {
 	WinAuthRuleMap                    IWinAuthRuleMapDo
 	WinFreeGameRecord                 IWinFreeGameRecordDo
 	WinCoinUserGameTransfer IWinCoinUserGameTransferDo
+	WinFreeGameList IWinFreeGameListDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -998,6 +1005,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		WinAuthRuleMap:                    q.WinAuthRuleMap.WithContext(ctx),
 		WinFreeGameRecord:                 q.WinFreeGameRecord.WithContext(ctx),
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.WithContext(ctx),
+		WinFreeGameList: q.WinFreeGameList.WithContext(ctx),
 	}
 }
 
