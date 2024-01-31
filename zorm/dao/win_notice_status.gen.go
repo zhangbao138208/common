@@ -34,6 +34,7 @@ func newWinNoticeStatus(db *gorm.DB, opts ...gen.DOOption) winNoticeStatus {
 	_winNoticeStatus.IsDelete = field.NewInt64(tableName, "is_delete")
 	_winNoticeStatus.CreateAt = field.NewInt64(tableName, "create_at")
 	_winNoticeStatus.UpdateAt = field.NewInt64(tableName, "update_at")
+	_winNoticeStatus.Category = field.NewInt64(tableName, "category")
 
 	_winNoticeStatus.fillFieldMap()
 
@@ -51,6 +52,7 @@ type winNoticeStatus struct {
 	IsDelete field.Int64 // 0-未删除1-删除
 	CreateAt field.Int64 // 创建时间
 	UpdateAt field.Int64 // 创基时间
+	Category field.Int64 // 类型:1-系统公告2-站内信 3-系统消息
 
 	fieldMap map[string]field.Expr
 }
@@ -74,6 +76,7 @@ func (w *winNoticeStatus) updateTableName(table string) *winNoticeStatus {
 	w.IsDelete = field.NewInt64(table, "is_delete")
 	w.CreateAt = field.NewInt64(table, "create_at")
 	w.UpdateAt = field.NewInt64(table, "update_at")
+	w.Category = field.NewInt64(table, "category")
 
 	w.fillFieldMap()
 
@@ -90,7 +93,7 @@ func (w *winNoticeStatus) GetFieldByName(fieldName string) (field.OrderExpr, boo
 }
 
 func (w *winNoticeStatus) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 7)
+	w.fieldMap = make(map[string]field.Expr, 8)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["uid"] = w.UID
 	w.fieldMap["notice_id"] = w.NoticeID
@@ -98,6 +101,7 @@ func (w *winNoticeStatus) fillFieldMap() {
 	w.fieldMap["is_delete"] = w.IsDelete
 	w.fieldMap["create_at"] = w.CreateAt
 	w.fieldMap["update_at"] = w.UpdateAt
+	w.fieldMap["category"] = w.Category
 }
 
 func (w winNoticeStatus) clone(db *gorm.DB) winNoticeStatus {
