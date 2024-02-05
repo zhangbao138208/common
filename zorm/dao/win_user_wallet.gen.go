@@ -34,9 +34,11 @@ func newWinUserWallet(db *gorm.DB, opts ...gen.DOOption) winUserWallet {
 	_winUserWallet.Category = field.NewInt64(tableName, "category")
 	_winUserWallet.Currency = field.NewInt64(tableName, "currency")
 	_winUserWallet.Coin = field.NewField(tableName, "coin")
+	_winUserWallet.CodeAmount = field.NewField(tableName, "code_amount")
 	_winUserWallet.Frozen = field.NewField(tableName, "frozen")
 	_winUserWallet.Version = field.NewInt64(tableName, "version")
 	_winUserWallet.ModifyAt = field.NewInt64(tableName, "modify_at")
+	_winUserWallet.CodeUpdatedAt = field.NewInt64(tableName, "code_updated_at")
 	_winUserWallet.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winUserWallet.UpdatedAt = field.NewInt64(tableName, "updated_at")
 
@@ -48,19 +50,21 @@ func newWinUserWallet(db *gorm.DB, opts ...gen.DOOption) winUserWallet {
 type winUserWallet struct {
 	winUserWalletDo
 
-	ALL        field.Asterisk
-	ID         field.Int64
-	UID        field.Int64  // 用户ID
-	Username   field.String // 用户名
-	MerchantID field.Int64  // 商户id
-	Category   field.Int64  // 钱包类型:支付/游戏/活动/佣金
-	Currency   field.Int64  // 币种, 1: PHP
-	Coin       field.Field  // 账户余额
-	Frozen     field.Field  // 冻结金额
-	Version    field.Int64  // 版本号
-	ModifyAt   field.Int64  // 13位时间戳
-	CreatedAt  field.Int64
-	UpdatedAt  field.Int64
+	ALL           field.Asterisk
+	ID            field.Int64
+	UID           field.Int64  // 用户id
+	Username      field.String // 用户名
+	MerchantID    field.Int64  // 商户id
+	Category      field.Int64  // 钱包类型:支付/游戏/活动/佣金
+	Currency      field.Int64  // 币种
+	Coin          field.Field  // 账户余额
+	CodeAmount    field.Field  // 打码量
+	Frozen        field.Field  // 冻结金额
+	Version       field.Int64  // 版本号
+	ModifyAt      field.Int64  // 13位时间戳
+	CodeUpdatedAt field.Int64  // 打码量-更新时间
+	CreatedAt     field.Int64
+	UpdatedAt     field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -84,9 +88,11 @@ func (w *winUserWallet) updateTableName(table string) *winUserWallet {
 	w.Category = field.NewInt64(table, "category")
 	w.Currency = field.NewInt64(table, "currency")
 	w.Coin = field.NewField(table, "coin")
+	w.CodeAmount = field.NewField(table, "code_amount")
 	w.Frozen = field.NewField(table, "frozen")
 	w.Version = field.NewInt64(table, "version")
 	w.ModifyAt = field.NewInt64(table, "modify_at")
+	w.CodeUpdatedAt = field.NewInt64(table, "code_updated_at")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
 
@@ -105,7 +111,7 @@ func (w *winUserWallet) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (w *winUserWallet) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 12)
+	w.fieldMap = make(map[string]field.Expr, 14)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["uid"] = w.UID
 	w.fieldMap["username"] = w.Username
@@ -113,9 +119,11 @@ func (w *winUserWallet) fillFieldMap() {
 	w.fieldMap["category"] = w.Category
 	w.fieldMap["currency"] = w.Currency
 	w.fieldMap["coin"] = w.Coin
+	w.fieldMap["code_amount"] = w.CodeAmount
 	w.fieldMap["frozen"] = w.Frozen
 	w.fieldMap["version"] = w.Version
 	w.fieldMap["modify_at"] = w.ModifyAt
+	w.fieldMap["code_updated_at"] = w.CodeUpdatedAt
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
 }
