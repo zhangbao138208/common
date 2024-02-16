@@ -63,7 +63,7 @@ var (
 	WinCoinLogCopy1                   *winCoinLogCopy1
 	WinCoinRate                       *winCoinRate
 	WinCoinRebate                     *winCoinRebate
-	WinCoinReward                     *winCoinReward
+	WinCoinRewards                     *winCoinRewards
 	WinCoinWithdrawalRecord           *winCoinWithdrawalRecord
 	WinCoinWithdrawalRecordDelUser    *winCoinWithdrawalRecordDelUser
 	WinConfig                         *winConfig
@@ -185,7 +185,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	WinCoinLogCopy1 = &Q.WinCoinLogCopy1
 	WinCoinRate = &Q.WinCoinRate
 	WinCoinRebate = &Q.WinCoinRebate
-	WinCoinReward = &Q.WinCoinReward
+	WinCoinRewards = &Q.WinCoinRewards
 	WinCoinWithdrawalRecord = &Q.WinCoinWithdrawalRecord
 	WinCoinWithdrawalRecordDelUser = &Q.WinCoinWithdrawalRecordDelUser
 	WinConfig = &Q.WinConfig
@@ -308,7 +308,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinCoinLogCopy1:                   newWinCoinLogCopy1(db, opts...),
 		WinCoinRate:                       newWinCoinRate(db, opts...),
 		WinCoinRebate:                     newWinCoinRebate(db, opts...),
-		WinCoinReward:                     newWinCoinReward(db, opts...),
+		WinCoinRewards:                     newWinCoinRewards(db, opts...),
 		WinCoinWithdrawalRecord:           newWinCoinWithdrawalRecord(db, opts...),
 		WinCoinWithdrawalRecordDelUser:    newWinCoinWithdrawalRecordDelUser(db, opts...),
 		WinConfig:                         newWinConfig(db, opts...),
@@ -432,7 +432,7 @@ type Query struct {
 	WinCoinLogCopy1                   winCoinLogCopy1
 	WinCoinRate                       winCoinRate
 	WinCoinRebate                     winCoinRebate
-	WinCoinReward                     winCoinReward
+	WinCoinRewards                    winCoinRewards
 	WinCoinWithdrawalRecord           winCoinWithdrawalRecord
 	WinCoinWithdrawalRecordDelUser    winCoinWithdrawalRecordDelUser
 	WinConfig                         winConfig
@@ -557,7 +557,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		WinCoinLogCopy1:                   q.WinCoinLogCopy1.clone(db),
 		WinCoinRate:                       q.WinCoinRate.clone(db),
 		WinCoinRebate:                     q.WinCoinRebate.clone(db),
-		WinCoinReward:                     q.WinCoinReward.clone(db),
+		WinCoinRewards:                     q.WinCoinRewards.clone(db),
 		WinCoinWithdrawalRecord:           q.WinCoinWithdrawalRecord.clone(db),
 		WinCoinWithdrawalRecordDelUser:    q.WinCoinWithdrawalRecordDelUser.clone(db),
 		WinConfig:                         q.WinConfig.clone(db),
@@ -689,7 +689,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		WinCoinLogCopy1:                   q.WinCoinLogCopy1.replaceDB(db),
 		WinCoinRate:                       q.WinCoinRate.replaceDB(db),
 		WinCoinRebate:                     q.WinCoinRebate.replaceDB(db),
-		WinCoinReward:                     q.WinCoinReward.replaceDB(db),
+		WinCoinRewards:                     q.WinCoinRewards.replaceDB(db),
 		WinCoinWithdrawalRecord:           q.WinCoinWithdrawalRecord.replaceDB(db),
 		WinCoinWithdrawalRecordDelUser:    q.WinCoinWithdrawalRecordDelUser.replaceDB(db),
 		WinConfig:                         q.WinConfig.replaceDB(db),
@@ -811,7 +811,7 @@ type queryCtx struct {
 	WinCoinLogCopy1                   IWinCoinLogCopy1Do
 	WinCoinRate                       IWinCoinRateDo
 	WinCoinRebate                     IWinCoinRebateDo
-	WinCoinReward                     IWinCoinRewardDo
+	WinCoinRewards                     IWinCoinRewardsDo
 	WinCoinWithdrawalRecord           IWinCoinWithdrawalRecordDo
 	WinCoinWithdrawalRecordDelUser    IWinCoinWithdrawalRecordDelUserDo
 	WinConfig                         IWinConfigDo
@@ -933,7 +933,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		WinCoinLogCopy1:                   q.WinCoinLogCopy1.WithContext(ctx),
 		WinCoinRate:                       q.WinCoinRate.WithContext(ctx),
 		WinCoinRebate:                     q.WinCoinRebate.WithContext(ctx),
-		WinCoinReward:                     q.WinCoinReward.WithContext(ctx),
+		WinCoinRewards:                     q.WinCoinRewards.WithContext(ctx),
 		WinCoinWithdrawalRecord:           q.WinCoinWithdrawalRecord.WithContext(ctx),
 		WinCoinWithdrawalRecordDelUser:    q.WinCoinWithdrawalRecordDelUser.WithContext(ctx),
 		WinConfig:                         q.WinConfig.WithContext(ctx),

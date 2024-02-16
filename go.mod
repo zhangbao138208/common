@@ -93,7 +93,4 @@ require (
 
 replace github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.16
 
-replace (
-	gitlab.skig.tech/zero-core/sharding v0.0.11 => github.com/zhangbao138208/sharding v1.0.1
-
-)
+replace gitlab.skig.tech/zero-core/sharding v0.0.11 => github.com/zhangbao138208/sharding v1.0.1
