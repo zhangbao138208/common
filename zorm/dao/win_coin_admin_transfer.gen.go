@@ -35,12 +35,11 @@ func newWinCoinAdminTransfer(db *gorm.DB, opts ...gen.DOOption) winCoinAdminTran
 	_winCoinAdminTransfer.Username = field.NewString(tableName, "username")
 	_winCoinAdminTransfer.Category = field.NewInt64(tableName, "category")
 	_winCoinAdminTransfer.Mark = field.NewString(tableName, "mark")
-	_winCoinAdminTransfer.Message = field.NewString(tableName, "message")
-	_winCoinAdminTransfer.FlowClaim = field.NewInt64(tableName, "flow_claim")
-	_winCoinAdminTransfer.AdminName = field.NewString(tableName, "admin_name")
 	_winCoinAdminTransfer.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winCoinAdminTransfer.UpdatedAt = field.NewInt64(tableName, "updated_at")
-	_winCoinAdminTransfer.Message2 = field.NewString(tableName, "message2")
+	_winCoinAdminTransfer.FlowClaim = field.NewInt64(tableName, "flow_claim")
+	_winCoinAdminTransfer.Message = field.NewString(tableName, "message")
+	_winCoinAdminTransfer.MerchantID = field.NewInt64(tableName, "merchant_id")
 
 	_winCoinAdminTransfer.fillFieldMap()
 
@@ -59,12 +58,11 @@ type winCoinAdminTransfer struct {
 	Username   field.String // 用户名
 	Category   field.Int64  // 调账原因:0-其他 1-误存调账 2-活动调账
 	Mark       field.String // 调账原因
-	Message    field.String // 通知客户信息
-	FlowClaim  field.Int64  // 流水倍数
-	AdminName  field.String // 操作人名称
 	CreatedAt  field.Int64
 	UpdatedAt  field.Int64
-	Message2   field.String // 通知客户信息
+	FlowClaim  field.Int64  // 流水倍数
+	Message    field.String // 通知客户信息
+	MerchantID field.Int64  // 商户id
 
 	fieldMap map[string]field.Expr
 }
@@ -89,12 +87,11 @@ func (w *winCoinAdminTransfer) updateTableName(table string) *winCoinAdminTransf
 	w.Username = field.NewString(table, "username")
 	w.Category = field.NewInt64(table, "category")
 	w.Mark = field.NewString(table, "mark")
-	w.Message = field.NewString(table, "message")
-	w.FlowClaim = field.NewInt64(table, "flow_claim")
-	w.AdminName = field.NewString(table, "admin_name")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
-	w.Message2 = field.NewString(table, "message2")
+	w.FlowClaim = field.NewInt64(table, "flow_claim")
+	w.Message = field.NewString(table, "message")
+	w.MerchantID = field.NewInt64(table, "merchant_id")
 
 	w.fillFieldMap()
 
@@ -111,7 +108,7 @@ func (w *winCoinAdminTransfer) GetFieldByName(fieldName string) (field.OrderExpr
 }
 
 func (w *winCoinAdminTransfer) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 14)
+	w.fieldMap = make(map[string]field.Expr, 13)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["admin_id"] = w.AdminID
 	w.fieldMap["coin"] = w.Coin
@@ -120,12 +117,11 @@ func (w *winCoinAdminTransfer) fillFieldMap() {
 	w.fieldMap["username"] = w.Username
 	w.fieldMap["category"] = w.Category
 	w.fieldMap["mark"] = w.Mark
-	w.fieldMap["message"] = w.Message
-	w.fieldMap["flow_claim"] = w.FlowClaim
-	w.fieldMap["admin_name"] = w.AdminName
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
-	w.fieldMap["message2"] = w.Message2
+	w.fieldMap["flow_claim"] = w.FlowClaim
+	w.fieldMap["message"] = w.Message
+	w.fieldMap["merchant_id"] = w.MerchantID
 }
 
 func (w winCoinAdminTransfer) clone(db *gorm.DB) winCoinAdminTransfer {

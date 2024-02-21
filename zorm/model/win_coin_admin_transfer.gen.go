@@ -10,20 +10,19 @@ const TableNameWinCoinAdminTransfer = "win_coin_admin_transfer"
 
 // WinCoinAdminTransfer mapped from table <win_coin_admin_transfer>
 type WinCoinAdminTransfer struct {
-	ID         int64           `gorm:"column:id;type:bigint;primaryKey" json:"id,string"`
-	AdminID    int64           `gorm:"column:admin_id;type:int;not null;comment:管理员ID" json:"adminId"`                                // 管理员ID
+	ID         int64           `gorm:"column:id;type:bigint(20);primaryKey" json:"id,string"`
+	AdminID    int64           `gorm:"column:admin_id;type:int(11);not null;comment:管理员ID" json:"adminId"`                            // 管理员ID
 	Coin       decimal.Decimal `gorm:"column:coin;type:decimal(15,4);not null;default:0.0000;comment:调账金额" json:"coin"`               // 调账金额
 	CoinBefore decimal.Decimal `gorm:"column:coin_before;type:decimal(15,4);not null;default:0.0000;comment:调账前金额" json:"coinBefore"` // 调账前金额
-	UID        int64           `gorm:"column:uid;type:int;not null;comment:用户ID" json:"uid"`                                          // 用户ID
+	UID        int64           `gorm:"column:uid;type:int(11);not null;comment:用户ID" json:"uid"`                                      // 用户ID
 	Username   string          `gorm:"column:username;type:varchar(32);not null;comment:用户名" json:"username"`                         // 用户名
-	Category   int64           `gorm:"column:category;type:tinyint;not null;comment:调账原因:0-其他 1-误存调账 2-活动调账" json:"category"`         // 调账原因:0-其他 1-误存调账 2-活动调账
+	Category   int64           `gorm:"column:category;type:tinyint(4);not null;comment:调账原因:0-其他 1-误存调账 2-活动调账" json:"category"`      // 调账原因:0-其他 1-误存调账 2-活动调账
 	Mark       string          `gorm:"column:mark;type:varchar(255);not null;comment:调账原因" json:"mark"`                               // 调账原因
-	Message    string          `gorm:"column:message;type:varchar(500);comment:通知客户信息" json:"message"`                                // 通知客户信息
-	FlowClaim  int64           `gorm:"column:flow_claim;type:int;comment:流水倍数" json:"flowClaim"`                                      // 流水倍数
-	AdminName  string          `gorm:"column:admin_name;type:varchar(50);comment:操作人名称" json:"adminName"`                             // 操作人名称
 	CreatedAt  int64           `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	UpdatedAt  int64           `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
-	Message2   string          `gorm:"column:message2;type:varchar(500);comment:通知客户信息" json:"message2"` // 通知客户信息
+	FlowClaim  int64           `gorm:"column:flow_claim;type:int(11);not null;default:1;comment:流水倍数" json:"flowClaim"` // 流水倍数
+	Message    string          `gorm:"column:message;type:varchar(500);comment:通知客户信息" json:"message"`                  // 通知客户信息
+	MerchantID int64           `gorm:"column:merchant_id;type:int(11);not null;comment:商户id" json:"merchantId"`         // 商户id
 }
 
 // TableName WinCoinAdminTransfer's table name
