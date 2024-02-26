@@ -136,6 +136,7 @@ var (
 	WinFreeGameRecord                 *winFreeGameRecord
 	WinCoinUserGameTransfer *winCoinUserGameTransfer
 	WinFreeGameList *winFreeGameList
+	AgentConfig *agentConfig
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -258,6 +259,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	WinFreeGameRecord = &Q.WinFreeGameRecord
 	WinCoinUserGameTransfer = &Q.WinCoinUserGameTransfer
 	WinFreeGameList = &Q.WinFreeGameList
+	AgentConfig = &Q.AgentConfig
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
@@ -381,6 +383,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinFreeGameRecord:                 newWinFreeGameRecord(db, opts...),
 		WinCoinUserGameTransfer: newWinCoinUserGameTransfer(db, opts...),
 		WinFreeGameList: newWinFreeGameList(db, opts...),
+		AgentConfig: newAgentConfig(db, opts...),
 	}
 }
 
@@ -505,6 +508,7 @@ type Query struct {
 	WinFreeGameRecord                 winFreeGameRecord
 	WinCoinUserGameTransfer winCoinUserGameTransfer
 	WinFreeGameList winFreeGameList
+	AgentConfig agentConfig
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -630,6 +634,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		WinFreeGameRecord:                 q.WinFreeGameRecord.clone(db),
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.clone(db),
 		WinFreeGameList: q.WinFreeGameList.clone(db),
+		AgentConfig: q.AgentConfig.clone(db),
 	}
 }
 
@@ -762,6 +767,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		WinFreeGameRecord:                 q.WinFreeGameRecord.replaceDB(db),
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.replaceDB(db),
 		WinFreeGameList: q.WinFreeGameList.replaceDB(db),
+		AgentConfig: q.AgentConfig.replaceDB(db),
 	}
 }
 
@@ -884,6 +890,7 @@ type queryCtx struct {
 	WinFreeGameRecord                 IWinFreeGameRecordDo
 	WinCoinUserGameTransfer IWinCoinUserGameTransferDo
 	WinFreeGameList IWinFreeGameListDo
+	AgentConfig IAgentConfigDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
