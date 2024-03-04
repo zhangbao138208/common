@@ -31,10 +31,8 @@ func newAgentConfig(db *gorm.DB, opts ...gen.DOOption) agentConfig {
 	_agentConfig.AgentID = field.NewInt64(tableName, "agent_id")
 	_agentConfig.Agentname = field.NewString(tableName, "agentname")
 	_agentConfig.AgentLevel = field.NewInt64(tableName, "agent_level")
-	_agentConfig.CommissionRateSlot = field.NewField(tableName, "commission_rate_slot")
-	_agentConfig.CommissionRateReal = field.NewField(tableName, "commission_rate_real")
-	_agentConfig.CommissionRateSport = field.NewField(tableName, "commission_rate_sport")
-	_agentConfig.CommissionRateMachine = field.NewField(tableName, "commission_rate_machine")
+	_agentConfig.CommissionRate = field.NewField(tableName, "commission_rate")
+	_agentConfig.ExpiredAt = field.NewInt64(tableName, "expired_at")
 
 	_agentConfig.fillFieldMap()
 
@@ -44,15 +42,13 @@ func newAgentConfig(db *gorm.DB, opts ...gen.DOOption) agentConfig {
 type agentConfig struct {
 	agentConfigDo
 
-	ALL                   field.Asterisk
-	ID                    field.Int64  // 主键ID
-	AgentID               field.Int64  // 代理ID
-	Agentname             field.String // 代理名称
-	AgentLevel            field.Int64  // 代理层级
-	CommissionRateSlot    field.Field  // 佣金比例-老虎机类型
-	CommissionRateReal    field.Field  // 佣金比例-真人类型
-	CommissionRateSport   field.Field  // 佣金比例-体育类型
-	CommissionRateMachine field.Field  // 佣金比例-实体机类型
+	ALL            field.Asterisk
+	ID             field.Int64
+	AgentID        field.Int64  // 代理ID
+	Agentname      field.String // 代理名称
+	AgentLevel     field.Int64  // 代理层级
+	CommissionRate field.Field  // 佣金比例
+	ExpiredAt      field.Int64  // 会员代理关系过期天数
 
 	fieldMap map[string]field.Expr
 }
@@ -73,10 +69,8 @@ func (a *agentConfig) updateTableName(table string) *agentConfig {
 	a.AgentID = field.NewInt64(table, "agent_id")
 	a.Agentname = field.NewString(table, "agentname")
 	a.AgentLevel = field.NewInt64(table, "agent_level")
-	a.CommissionRateSlot = field.NewField(table, "commission_rate_slot")
-	a.CommissionRateReal = field.NewField(table, "commission_rate_real")
-	a.CommissionRateSport = field.NewField(table, "commission_rate_sport")
-	a.CommissionRateMachine = field.NewField(table, "commission_rate_machine")
+	a.CommissionRate = field.NewField(table, "commission_rate")
+	a.ExpiredAt = field.NewInt64(table, "expired_at")
 
 	a.fillFieldMap()
 
@@ -93,15 +87,13 @@ func (a *agentConfig) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *agentConfig) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 8)
+	a.fieldMap = make(map[string]field.Expr, 6)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["agent_id"] = a.AgentID
 	a.fieldMap["agentname"] = a.Agentname
 	a.fieldMap["agent_level"] = a.AgentLevel
-	a.fieldMap["commission_rate_slot"] = a.CommissionRateSlot
-	a.fieldMap["commission_rate_real"] = a.CommissionRateReal
-	a.fieldMap["commission_rate_sport"] = a.CommissionRateSport
-	a.fieldMap["commission_rate_machine"] = a.CommissionRateMachine
+	a.fieldMap["commission_rate"] = a.CommissionRate
+	a.fieldMap["expired_at"] = a.ExpiredAt
 }
 
 func (a agentConfig) clone(db *gorm.DB) agentConfig {
