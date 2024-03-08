@@ -18,7 +18,7 @@ type AgentReportConfigHistory struct {
 	RateSlot       decimal.Decimal `gorm:"column:rate_slot;type:decimal(8,5);not null;default:0.00000;comment:厂商费率-老虎机" json:"rateSlot"`         // 厂商费率-老虎机
 	RateReal       decimal.Decimal `gorm:"column:rate_real;type:decimal(8,5);not null;default:0.00000;comment:厂商费率-真人" json:"rateReal"`          // 厂商费率-真人
 	RateMachine    decimal.Decimal `gorm:"column:rate_machine;type:decimal(8,5);not null;default:0.00000;comment:厂商费率-实体机" json:"rateMachine"`   // 厂商费率-实体机
-	RateWithdrawal decimal.Decimal `gorm:"column:rate_withdrawal;type:decimal(8,5);not null;default:0.00000;comment:提款费率" json:"rateWithdrawal"` // 提款费率
+	RateDeposit    decimal.Decimal `gorm:"column:rate_deposit;type:decimal(8,5);not null;default:0.00000;comment:存款费率" json:"rateDeposit"`       // 存款费率
 	ExpiredAt      int64           `gorm:"column:expired_at;type:int(11);not null;comment:代理关系过期天数" json:"expiredAt"`                            // 代理关系过期天数
 	Tag            int64           `gorm:"column:tag;type:tinyint(4);not null;comment:标记: 0-厂商费率, 1-佣金比例" json:"tag"`                            // 标记: 0-厂商费率, 1-佣金比例
 	CreatedAt      int64           `gorm:"column:created_at;comment:创建时间" json:"createdAt"`                                                      // 创建时间

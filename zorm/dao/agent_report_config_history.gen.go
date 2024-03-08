@@ -35,7 +35,7 @@ func newAgentReportConfigHistory(db *gorm.DB, opts ...gen.DOOption) agentReportC
 	_agentReportConfigHistory.RateSlot = field.NewField(tableName, "rate_slot")
 	_agentReportConfigHistory.RateReal = field.NewField(tableName, "rate_real")
 	_agentReportConfigHistory.RateMachine = field.NewField(tableName, "rate_machine")
-	_agentReportConfigHistory.RateWithdrawal = field.NewField(tableName, "rate_withdrawal")
+	_agentReportConfigHistory.RateDeposit = field.NewField(tableName, "rate_deposit")
 	_agentReportConfigHistory.ExpiredAt = field.NewInt64(tableName, "expired_at")
 	_agentReportConfigHistory.Tag = field.NewInt64(tableName, "tag")
 	_agentReportConfigHistory.CreatedAt = field.NewInt64(tableName, "created_at")
@@ -58,7 +58,7 @@ type agentReportConfigHistory struct {
 	RateSlot       field.Field  // 厂商费率-老虎机
 	RateReal       field.Field  // 厂商费率-真人
 	RateMachine    field.Field  // 厂商费率-实体机
-	RateWithdrawal field.Field  // 提款费率
+	RateDeposit    field.Field  // 存款费率
 	ExpiredAt      field.Int64  // 代理关系过期天数
 	Tag            field.Int64  // 标记: 0-厂商费率, 1-佣金比例
 	CreatedAt      field.Int64  // 创建时间
@@ -87,7 +87,7 @@ func (a *agentReportConfigHistory) updateTableName(table string) *agentReportCon
 	a.RateSlot = field.NewField(table, "rate_slot")
 	a.RateReal = field.NewField(table, "rate_real")
 	a.RateMachine = field.NewField(table, "rate_machine")
-	a.RateWithdrawal = field.NewField(table, "rate_withdrawal")
+	a.RateDeposit = field.NewField(table, "rate_deposit")
 	a.ExpiredAt = field.NewInt64(table, "expired_at")
 	a.Tag = field.NewInt64(table, "tag")
 	a.CreatedAt = field.NewInt64(table, "created_at")
@@ -117,7 +117,7 @@ func (a *agentReportConfigHistory) fillFieldMap() {
 	a.fieldMap["rate_slot"] = a.RateSlot
 	a.fieldMap["rate_real"] = a.RateReal
 	a.fieldMap["rate_machine"] = a.RateMachine
-	a.fieldMap["rate_withdrawal"] = a.RateWithdrawal
+	a.fieldMap["rate_deposit"] = a.RateDeposit
 	a.fieldMap["expired_at"] = a.ExpiredAt
 	a.fieldMap["tag"] = a.Tag
 	a.fieldMap["created_at"] = a.CreatedAt
