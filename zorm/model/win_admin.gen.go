@@ -9,17 +9,23 @@ const TableNameWinAdmin = "win_admin"
 // WinAdmin mapped from table <win_admin>
 type WinAdmin struct {
 	ID           int64  `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id,string"`
-	Username     string `gorm:"column:username;type:varchar(32);not null;comment:用户名" json:"username"`                   // 用户名
-	MerchantID   int64  `gorm:"column:merchant_id;type:int;not null;comment:商户id" json:"merchantId"`                     // 商户id
-	AgentID      int64  `gorm:"column:agent_id;type:int;not null;comment:代理ID" json:"agentId"`                           // 代理ID
-	PasswordHash string `gorm:"column:password_hash;type:varchar(255);not null;comment:登录密码" json:"passwordHash"`        // 登录密码
-	AdminGroupID int64  `gorm:"column:admin_group_id;type:int;not null;comment:用户组ID" json:"adminGroupId"`               // 用户组ID
-	OperateID    int64  `gorm:"column:operate_id;type:int;not null;comment:操作人ID" json:"operateId"`                      // 操作人ID
-	Parent       int64  `gorm:"column:parent;type:int;comment:上级ID" json:"parent"`                                       // 上级ID
-	Secret       string `gorm:"column:secret;type:varchar(100);not null;comment:Google密钥" json:"secret"`                 // Google密钥
-	Status       int64  `gorm:"column:status;type:tinyint;not null;default:10;comment:状态:10-正常 9-冻结 8-删除" json:"status"` // 状态:10-正常 9-冻结 8-删除
+	Username     string `gorm:"column:username;type:varchar(32);not null" json:"username"`
+	MerchantID   int64  `gorm:"column:merchant_id;type:int;not null;comment:id" json:"merchantId"` // id
+	AgentID      int64  `gorm:"column:agent_id;type:int;not null;comment:ID" json:"agentId"`       // ID
+	PasswordHash string `gorm:"column:password_hash;type:varchar(255);not null" json:"passwordHash"`
+	AdminGroupID int64  `gorm:"column:admin_group_id;type:int;not null;comment:ID" json:"adminGroupId"`          // ID
+	OperateID    int64  `gorm:"column:operate_id;type:int;not null;comment:ID" json:"operateId"`                 // ID
+	Parent       int64  `gorm:"column:parent;type:int;comment:ID" json:"parent"`                                 // ID
+	Secret       string `gorm:"column:secret;type:varchar(100);not null;comment:Google" json:"secret"`           // Google
+	Status       int64  `gorm:"column:status;type:tinyint;not null;default:10;comment::10- 9- 8-" json:"status"` // :10- 9- 8-
 	CreatedAt    int64  `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	UpdatedAt    int64  `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
+	Nickname     string `gorm:"column:nickname;type:varchar(255);not null;comment:Nickname |" json:"nickname"`                                                                // Nickname |
+	HomePath     string `gorm:"column:home_path;type:varchar(255);not null;default:/dashboard;comment:The home page that the user enters after logging in |" json:"homePath"` // The home page that the user enters after logging in |
+	Mobile       string `gorm:"column:mobile;type:varchar(255);comment:Mobile number" json:"mobile"`                                                                          // Mobile number
+	Email        string `gorm:"column:email;type:varchar(255);comment:Email |" json:"email"`                                                                                  // Email |
+	Avatar       string `gorm:"column:avatar;type:varchar(512);comment:Avatar |" json:"avatar"`                                                                               // Avatar |
+	DepartmentID int64  `gorm:"column:department_id;type:bigint unsigned;default:1;comment:Department ID | ID" json:"departmentId"`                                           // Department ID | ID
 }
 
 // TableName WinAdmin's table name

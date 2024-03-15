@@ -39,6 +39,12 @@ func newWinAdmin(db *gorm.DB, opts ...gen.DOOption) winAdmin {
 	_winAdmin.Status = field.NewInt64(tableName, "status")
 	_winAdmin.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winAdmin.UpdatedAt = field.NewInt64(tableName, "updated_at")
+	_winAdmin.Nickname = field.NewString(tableName, "nickname")
+	_winAdmin.HomePath = field.NewString(tableName, "home_path")
+	_winAdmin.Mobile = field.NewString(tableName, "mobile")
+	_winAdmin.Email = field.NewString(tableName, "email")
+	_winAdmin.Avatar = field.NewString(tableName, "avatar")
+	_winAdmin.DepartmentID = field.NewInt64(tableName, "department_id")
 
 	_winAdmin.fillFieldMap()
 
@@ -50,17 +56,23 @@ type winAdmin struct {
 
 	ALL          field.Asterisk
 	ID           field.Int64
-	Username     field.String // 用户名
-	MerchantID   field.Int64  // 商户id
-	AgentID      field.Int64  // 代理ID
-	PasswordHash field.String // 登录密码
-	AdminGroupID field.Int64  // 用户组ID
-	OperateID    field.Int64  // 操作人ID
-	Parent       field.Int64  // 上级ID
-	Secret       field.String // Google密钥
-	Status       field.Int64  // 状态:10-正常 9-冻结 8-删除
+	Username     field.String
+	MerchantID   field.Int64 // id
+	AgentID      field.Int64 // ID
+	PasswordHash field.String
+	AdminGroupID field.Int64  // ID
+	OperateID    field.Int64  // ID
+	Parent       field.Int64  // ID
+	Secret       field.String // Google
+	Status       field.Int64  // :10- 9- 8-
 	CreatedAt    field.Int64
 	UpdatedAt    field.Int64
+	Nickname     field.String // Nickname |
+	HomePath     field.String // The home page that the user enters after logging in |
+	Mobile       field.String // Mobile number
+	Email        field.String // Email |
+	Avatar       field.String // Avatar |
+	DepartmentID field.Int64  // Department ID | ID
 
 	fieldMap map[string]field.Expr
 }
@@ -89,6 +101,12 @@ func (w *winAdmin) updateTableName(table string) *winAdmin {
 	w.Status = field.NewInt64(table, "status")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
+	w.Nickname = field.NewString(table, "nickname")
+	w.HomePath = field.NewString(table, "home_path")
+	w.Mobile = field.NewString(table, "mobile")
+	w.Email = field.NewString(table, "email")
+	w.Avatar = field.NewString(table, "avatar")
+	w.DepartmentID = field.NewInt64(table, "department_id")
 
 	w.fillFieldMap()
 
@@ -105,7 +123,7 @@ func (w *winAdmin) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (w *winAdmin) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 12)
+	w.fieldMap = make(map[string]field.Expr, 18)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["username"] = w.Username
 	w.fieldMap["merchant_id"] = w.MerchantID
@@ -118,6 +136,12 @@ func (w *winAdmin) fillFieldMap() {
 	w.fieldMap["status"] = w.Status
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
+	w.fieldMap["nickname"] = w.Nickname
+	w.fieldMap["home_path"] = w.HomePath
+	w.fieldMap["mobile"] = w.Mobile
+	w.fieldMap["email"] = w.Email
+	w.fieldMap["avatar"] = w.Avatar
+	w.fieldMap["department_id"] = w.DepartmentID
 }
 
 func (w winAdmin) clone(db *gorm.DB) winAdmin {
