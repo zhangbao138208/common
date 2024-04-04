@@ -28,9 +28,8 @@ func newWinPromotions(db *gorm.DB, opts ...gen.DOOption) winPromotions {
 	tableName := _winPromotions.winPromotionsDo.TableName()
 	_winPromotions.ALL = field.NewAsterisk(tableName)
 	_winPromotions.ID = field.NewInt64(tableName, "id")
-	_winPromotions.Lang = field.NewString(tableName, "lang")
-	_winPromotions.Code = field.NewString(tableName, "code")
-	_winPromotions.CodeZh = field.NewString(tableName, "code_zh")
+	_winPromotions.Amount = field.NewField(tableName, "amount")
+	_winPromotions.Balance = field.NewField(tableName, "balance")
 	_winPromotions.DescriptZh = field.NewString(tableName, "descript_zh")
 	_winPromotions.Img = field.NewString(tableName, "img")
 	_winPromotions.Category = field.NewString(tableName, "category")
@@ -46,6 +45,7 @@ func newWinPromotions(db *gorm.DB, opts ...gen.DOOption) winPromotions {
 	_winPromotions.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winPromotions.UpdatedAt = field.NewInt64(tableName, "updated_at")
 	_winPromotions.OperatorName = field.NewString(tableName, "operator_name")
+	_winPromotions.Lang = field.NewString(tableName, "lang")
 
 	_winPromotions.fillFieldMap()
 
@@ -57,9 +57,8 @@ type winPromotions struct {
 
 	ALL            field.Asterisk
 	ID             field.Int64
-	Lang           field.String // 语言
-	Code           field.String // 活动标识:首充优惠-First Deposit Bonus 续充优惠-Second Deposit Bonus 首单包赔-Risk-Free Bet 快乐周末-Happy Weekend Bonus
-	CodeZh         field.String // 名称中文
+	Amount         field.Field  // 总预算
+	Balance        field.Field  // 总预算-剩余金额
 	DescriptZh     field.String // 详细描述-中文
 	Img            field.String // 图片
 	Category       field.String // 类型:1-充值优惠 2-豪礼赠送 3-新活动
@@ -75,6 +74,7 @@ type winPromotions struct {
 	CreatedAt      field.Int64
 	UpdatedAt      field.Int64
 	OperatorName   field.String // 操作人姓名
+	Lang           field.String // 语言
 
 	fieldMap map[string]field.Expr
 }
@@ -92,9 +92,8 @@ func (w winPromotions) As(alias string) *winPromotions {
 func (w *winPromotions) updateTableName(table string) *winPromotions {
 	w.ALL = field.NewAsterisk(table)
 	w.ID = field.NewInt64(table, "id")
-	w.Lang = field.NewString(table, "lang")
-	w.Code = field.NewString(table, "code")
-	w.CodeZh = field.NewString(table, "code_zh")
+	w.Amount = field.NewField(table, "amount")
+	w.Balance = field.NewField(table, "balance")
 	w.DescriptZh = field.NewString(table, "descript_zh")
 	w.Img = field.NewString(table, "img")
 	w.Category = field.NewString(table, "category")
@@ -110,6 +109,7 @@ func (w *winPromotions) updateTableName(table string) *winPromotions {
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
 	w.OperatorName = field.NewString(table, "operator_name")
+	w.Lang = field.NewString(table, "lang")
 
 	w.fillFieldMap()
 
@@ -128,9 +128,8 @@ func (w *winPromotions) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 func (w *winPromotions) fillFieldMap() {
 	w.fieldMap = make(map[string]field.Expr, 19)
 	w.fieldMap["id"] = w.ID
-	w.fieldMap["lang"] = w.Lang
-	w.fieldMap["code"] = w.Code
-	w.fieldMap["code_zh"] = w.CodeZh
+	w.fieldMap["amount"] = w.Amount
+	w.fieldMap["balance"] = w.Balance
 	w.fieldMap["descript_zh"] = w.DescriptZh
 	w.fieldMap["img"] = w.Img
 	w.fieldMap["category"] = w.Category
@@ -146,6 +145,7 @@ func (w *winPromotions) fillFieldMap() {
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
 	w.fieldMap["operator_name"] = w.OperatorName
+	w.fieldMap["lang"] = w.Lang
 }
 
 func (w winPromotions) clone(db *gorm.DB) winPromotions {

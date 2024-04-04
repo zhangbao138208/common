@@ -29,6 +29,8 @@ func newWinPromotionsInfo(db *gorm.DB, opts ...gen.DOOption) winPromotionsInfo {
 	_winPromotionsInfo.ALL = field.NewAsterisk(tableName)
 	_winPromotionsInfo.ID = field.NewInt64(tableName, "id")
 	_winPromotionsInfo.PromotionID = field.NewInt64(tableName, "promotion_id")
+	_winPromotionsInfo.Code = field.NewString(tableName, "code")
+	_winPromotionsInfo.CodeZh = field.NewString(tableName, "code_zh")
 	_winPromotionsInfo.LangCode = field.NewString(tableName, "lang_code")
 	_winPromotionsInfo.Title = field.NewString(tableName, "title")
 	_winPromotionsInfo.Img = field.NewString(tableName, "img")
@@ -46,6 +48,8 @@ type winPromotionsInfo struct {
 	ALL         field.Asterisk
 	ID          field.Int64  // 主键
 	PromotionID field.Int64  // 签到活动ID
+	Code        field.String // 活动标记:首充彩金,二充彩金等
+	CodeZh      field.String // 活动标记-中文名称
 	LangCode    field.String // 语言
 	Title       field.String // 标题
 	Img         field.String // 活动图片
@@ -69,6 +73,8 @@ func (w *winPromotionsInfo) updateTableName(table string) *winPromotionsInfo {
 	w.ALL = field.NewAsterisk(table)
 	w.ID = field.NewInt64(table, "id")
 	w.PromotionID = field.NewInt64(table, "promotion_id")
+	w.Code = field.NewString(table, "code")
+	w.CodeZh = field.NewString(table, "code_zh")
 	w.LangCode = field.NewString(table, "lang_code")
 	w.Title = field.NewString(table, "title")
 	w.Img = field.NewString(table, "img")
@@ -90,9 +96,11 @@ func (w *winPromotionsInfo) GetFieldByName(fieldName string) (field.OrderExpr, b
 }
 
 func (w *winPromotionsInfo) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 7)
+	w.fieldMap = make(map[string]field.Expr, 9)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["promotion_id"] = w.PromotionID
+	w.fieldMap["code"] = w.Code
+	w.fieldMap["code_zh"] = w.CodeZh
 	w.fieldMap["lang_code"] = w.LangCode
 	w.fieldMap["title"] = w.Title
 	w.fieldMap["img"] = w.Img

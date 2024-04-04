@@ -138,6 +138,8 @@ var (
 	WinFreeGameList *winFreeGameList
 	AgentConfig *agentConfig
 	AgentReportConfigHistory *agentReportConfigHistory
+	PromotionsConfig *promotionsConfig
+
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -262,6 +264,8 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	WinFreeGameList = &Q.WinFreeGameList
 	AgentConfig = &Q.AgentConfig
 	AgentReportConfigHistory = &Q.AgentReportConfigHistory
+	PromotionsConfig = &Q.PromotionsConfig
+
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
@@ -387,6 +391,8 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		WinFreeGameList: newWinFreeGameList(db, opts...),
 		AgentConfig: newAgentConfig(db, opts...),
 		AgentReportConfigHistory: newAgentReportConfigHistory(db, opts...),
+		PromotionsConfig: newPromotionsConfig(db, opts...),
+
 	}
 }
 
@@ -513,6 +519,8 @@ type Query struct {
 	WinFreeGameList winFreeGameList
 	AgentConfig agentConfig
 	AgentReportConfigHistory agentReportConfigHistory
+	PromotionsConfig promotionsConfig
+
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -640,6 +648,8 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		WinFreeGameList: q.WinFreeGameList.clone(db),
 		AgentConfig: q.AgentConfig.clone(db),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.clone(db),
+		PromotionsConfig: q.PromotionsConfig.clone(db),
+
 	}
 }
 
@@ -774,6 +784,8 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		WinFreeGameList: q.WinFreeGameList.replaceDB(db),
 		AgentConfig: q.AgentConfig.replaceDB(db),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.replaceDB(db),
+		PromotionsConfig: q.PromotionsConfig.replaceDB(db),
+
 	}
 }
 
@@ -898,6 +910,8 @@ type queryCtx struct {
 	WinFreeGameList IWinFreeGameListDo
 	AgentConfig IAgentConfigDo
 	AgentReportConfigHistory IAgentReportConfigHistoryDo
+	PromotionsConfig IPromotionsConfigDo
+
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -1021,6 +1035,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		WinCoinUserGameTransfer: q.WinCoinUserGameTransfer.WithContext(ctx),
 		WinFreeGameList: q.WinFreeGameList.WithContext(ctx),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.WithContext(ctx),
+		PromotionsConfig: q.PromotionsConfig.WithContext(ctx),
 	}
 }
 
