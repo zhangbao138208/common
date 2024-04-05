@@ -23,6 +23,7 @@ type WinCoinRewards struct {
 	EndedAt         int64           `gorm:"column:ended_at;type:int(11);comment:活动结束时间" json:"endedAt"`                                   // 活动结束时间
 	Info            string          `gorm:"column:info;type:longtext;comment:备注" json:"info"`                                             // 备注
 	Status          int64           `gorm:"column:status;type:tinyint(4);not null;comment:状态:0-申请中 1-已满足 2-已派发3-已结束" json:"status"`       // 状态:0-申请中 1-已满足 2-已派发3-已结束
+	Detail          string          `gorm:"column:detail;type:varchar(255);not null;comment:详情信息" json:"detail"`                          // 详情信息
 	CreatedAt       int64           `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	UpdatedAt       int64           `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
 	TransferBonusAt int64           `gorm:"column:transfer_bonus_at;type:int(11);not null;comment:转主钱包时间" json:"transferBonusAt"` // 转主钱包时间

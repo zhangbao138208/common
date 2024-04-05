@@ -40,6 +40,7 @@ func newWinCoinRewards(db *gorm.DB, opts ...gen.DOOption) winCoinRewards {
 	_winCoinRewards.EndedAt = field.NewInt64(tableName, "ended_at")
 	_winCoinRewards.Info = field.NewString(tableName, "info")
 	_winCoinRewards.Status = field.NewInt64(tableName, "status")
+	_winCoinRewards.Detail = field.NewString(tableName, "detail")
 	_winCoinRewards.CreatedAt = field.NewInt64(tableName, "created_at")
 	_winCoinRewards.UpdatedAt = field.NewInt64(tableName, "updated_at")
 	_winCoinRewards.TransferBonusAt = field.NewInt64(tableName, "transfer_bonus_at")
@@ -66,6 +67,7 @@ type winCoinRewards struct {
 	EndedAt         field.Int64  // 活动结束时间
 	Info            field.String // 备注
 	Status          field.Int64  // 状态:0-申请中 1-已满足 2-已派发3-已结束
+	Detail          field.String // 详情信息
 	CreatedAt       field.Int64
 	UpdatedAt       field.Int64
 	TransferBonusAt field.Int64 // 转主钱包时间
@@ -98,6 +100,7 @@ func (w *winCoinRewards) updateTableName(table string) *winCoinRewards {
 	w.EndedAt = field.NewInt64(table, "ended_at")
 	w.Info = field.NewString(table, "info")
 	w.Status = field.NewInt64(table, "status")
+	w.Detail = field.NewString(table, "detail")
 	w.CreatedAt = field.NewInt64(table, "created_at")
 	w.UpdatedAt = field.NewInt64(table, "updated_at")
 	w.TransferBonusAt = field.NewInt64(table, "transfer_bonus_at")
@@ -117,7 +120,7 @@ func (w *winCoinRewards) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (w *winCoinRewards) fillFieldMap() {
-	w.fieldMap = make(map[string]field.Expr, 16)
+	w.fieldMap = make(map[string]field.Expr, 17)
 	w.fieldMap["id"] = w.ID
 	w.fieldMap["uid"] = w.UID
 	w.fieldMap["username"] = w.Username
@@ -131,6 +134,7 @@ func (w *winCoinRewards) fillFieldMap() {
 	w.fieldMap["ended_at"] = w.EndedAt
 	w.fieldMap["info"] = w.Info
 	w.fieldMap["status"] = w.Status
+	w.fieldMap["detail"] = w.Detail
 	w.fieldMap["created_at"] = w.CreatedAt
 	w.fieldMap["updated_at"] = w.UpdatedAt
 	w.fieldMap["transfer_bonus_at"] = w.TransferBonusAt
