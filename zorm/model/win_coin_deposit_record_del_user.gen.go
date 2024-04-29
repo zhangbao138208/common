@@ -30,7 +30,7 @@ type WinCoinDepositRecordDelUser struct {
 	CategoryTransfer int64           `gorm:"column:category_transfer;type:tinyint;not null;default:3;comment:转账类型:1-TRC-20 2-ERC-20 3-BANK 4-PIX 5-GCASH" json:"categoryTransfer"` // 转账类型:1-TRC-20 2-ERC-20 3-BANK 4-PIX 5-GCASH
 	AdminUID         int64           `gorm:"column:admin_uid;type:int;not null;comment:审核ID" json:"adminUid"`                                                                      // 审核ID
 	Mark             string          `gorm:"column:mark;type:varchar(150);not null;comment:备注" json:"mark"`                                                                        // 备注
-	Status           int64           `gorm:"column:status;type:tinyint;not null;default:1;comment:状态: 0-申请中 1-成功 2-失败" json:"status"`                                              // 状态: 0-申请中 1-成功 2-失败
+	Status           int64           `gorm:"column:status;type:tinyint;not null;default:0;comment:状态: 0-申请中 1-成功 2-失败" json:"status"`                                              // 状态: 0-申请中 1-成功 2-失败
 	CreatedAt        int64           `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
 	UpdatedAt        int64           `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
 }
