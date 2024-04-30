@@ -11,6 +11,7 @@ type AppConfig struct {
 	ID        int64  `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id,string"`
 	Device    int64  `gorm:"column:device;type:tinyint;comment::0-all 1-android 2-ios" json:"device"` // :0-all 1-android 2-ios
 	Version   string `gorm:"column:version;type:varchar(30)" json:"version"`
+	URL       string `gorm:"column:url;type:varchar(100)" json:"url"`
 	Status    int64  `gorm:"column:status;type:tinyint;not null;comment:: 0- 1-" json:"status"` // : 0- 1-
 	IssuedAt  int64  `gorm:"column:issued_at;type:int;not null" json:"issuedAt"`
 	CreatedAt int64  `gorm:"column:created_at;comment:创建时间" json:"createdAt"`

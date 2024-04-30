@@ -30,6 +30,7 @@ func newAppConfig(db *gorm.DB, opts ...gen.DOOption) appConfig {
 	_appConfig.ID = field.NewInt64(tableName, "id")
 	_appConfig.Device = field.NewInt64(tableName, "device")
 	_appConfig.Version = field.NewString(tableName, "version")
+	_appConfig.URL = field.NewString(tableName, "url")
 	_appConfig.Status = field.NewInt64(tableName, "status")
 	_appConfig.IssuedAt = field.NewInt64(tableName, "issued_at")
 	_appConfig.CreatedAt = field.NewInt64(tableName, "created_at")
@@ -47,6 +48,7 @@ type appConfig struct {
 	ID        field.Int64
 	Device    field.Int64 // :0-all 1-android 2-ios
 	Version   field.String
+	URL       field.String
 	Status    field.Int64 // : 0- 1-
 	IssuedAt  field.Int64
 	CreatedAt field.Int64
@@ -70,6 +72,7 @@ func (a *appConfig) updateTableName(table string) *appConfig {
 	a.ID = field.NewInt64(table, "id")
 	a.Device = field.NewInt64(table, "device")
 	a.Version = field.NewString(table, "version")
+	a.URL = field.NewString(table, "url")
 	a.Status = field.NewInt64(table, "status")
 	a.IssuedAt = field.NewInt64(table, "issued_at")
 	a.CreatedAt = field.NewInt64(table, "created_at")
@@ -90,10 +93,11 @@ func (a *appConfig) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *appConfig) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 7)
+	a.fieldMap = make(map[string]field.Expr, 8)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["device"] = a.Device
 	a.fieldMap["version"] = a.Version
+	a.fieldMap["url"] = a.URL
 	a.fieldMap["status"] = a.Status
 	a.fieldMap["issued_at"] = a.IssuedAt
 	a.fieldMap["created_at"] = a.CreatedAt
