@@ -10,7 +10,7 @@ import (
 )
 
 // const dsn = "root:scott123456@(16.162.51.186:3306)/filbet_dev_main?charset=utf8mb4&parseTime=True&loc=Local"
-const dsn = "root:Ayala@360@(10.64.47.195:3306)/filbet_dev_sharding?charset=utf8mb4&parseTime=True&loc=Local"
+const dsn = "root:simple-admin.@(127.0.0.1:3306)/simple_admin?charset=utf8mb4&parseTime=True&loc=Local"
 
 // Case2Camel 下划线转驼峰(大驼峰)
 func Case2Camel(name string) string {

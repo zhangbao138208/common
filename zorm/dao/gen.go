@@ -139,7 +139,7 @@ var (
 	AgentConfig *agentConfig
 	AgentReportConfigHistory *agentReportConfigHistory
 	PromotionsConfig *promotionsConfig
-
+    AppConfig *appConfig
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -265,6 +265,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	AgentConfig = &Q.AgentConfig
 	AgentReportConfigHistory = &Q.AgentReportConfigHistory
 	PromotionsConfig = &Q.PromotionsConfig
+	AppConfig = &Q.AppConfig
 
 }
 
@@ -392,7 +393,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		AgentConfig: newAgentConfig(db, opts...),
 		AgentReportConfigHistory: newAgentReportConfigHistory(db, opts...),
 		PromotionsConfig: newPromotionsConfig(db, opts...),
-
+		AppConfig: newAppConfig(db, opts...),
 	}
 }
 
@@ -520,6 +521,7 @@ type Query struct {
 	AgentConfig agentConfig
 	AgentReportConfigHistory agentReportConfigHistory
 	PromotionsConfig promotionsConfig
+	AppConfig appConfig
 
 }
 
@@ -649,7 +651,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		AgentConfig: q.AgentConfig.clone(db),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.clone(db),
 		PromotionsConfig: q.PromotionsConfig.clone(db),
-
+		AppConfig: q.AppConfig.clone(db),
 	}
 }
 
@@ -785,6 +787,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		AgentConfig: q.AgentConfig.replaceDB(db),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.replaceDB(db),
 		PromotionsConfig: q.PromotionsConfig.replaceDB(db),
+		AppConfig: q.AppConfig.replaceDB(db),
 
 	}
 }
@@ -911,7 +914,7 @@ type queryCtx struct {
 	AgentConfig IAgentConfigDo
 	AgentReportConfigHistory IAgentReportConfigHistoryDo
 	PromotionsConfig IPromotionsConfigDo
-
+	AppConfig IAppConfigDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -1036,6 +1039,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		WinFreeGameList: q.WinFreeGameList.WithContext(ctx),
 		AgentReportConfigHistory: q.AgentReportConfigHistory.WithContext(ctx),
 		PromotionsConfig: q.PromotionsConfig.WithContext(ctx),
+		AppConfig: q.AppConfig.WithContext(ctx),
 	}
 }
 
